@@ -1,9 +1,5 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
 </script>
-
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <button class="bg-black text-white">Botão</button>
 </template>
