@@ -19,7 +19,13 @@ const router = createRouter({
       path: '/',
       name: 'BlankLayout',
       component: () => import('../layouts/BlankLayout.vue'),
-      children: [],
+      children: [
+        {
+          path: '/login',
+          name: 'login',
+          component: () => import('../views/LoginView.vue'),
+        }
+      ],
     },
   ],
 })
