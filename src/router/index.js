@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: "FullLayout",
+      name: 'FullLayout',
       component: () => import('../layouts/FullLayout.vue'),
       children: [
         {
@@ -13,17 +13,14 @@ const router = createRouter({
           name: 'home',
           component: () => import('../views/HomeView.vue'),
         },
-      ]
+      ],
     },
     {
       path: '/',
-      name: "BlankLayout",
+      name: 'BlankLayout',
       component: () => import('../layouts/BlankLayout.vue'),
-      children: [
-        
-      ]
-    }
-    
+      children: [],
+    },
   ],
 })
 
