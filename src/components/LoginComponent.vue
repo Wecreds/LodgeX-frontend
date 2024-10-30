@@ -49,7 +49,7 @@
                 type="email"
                 autocomplete="email"
                 required=""
-                class="block w-full rounded-md border-0 py-1.5 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
               />
             </div>
           </div>
@@ -75,7 +75,7 @@
                 type="password"
                 autocomplete="current-password"
                 required=""
-                class="block w-full rounded-md border-0 py-1.5 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
               />
             </div>
           </div>
@@ -94,7 +94,7 @@
           <a
             href="register"
             class="font-semibold text-primary-color hover:text-secondary-color"
-            >Sing up</a
+            >Sign up</a
           >
         </p>
       </div>
