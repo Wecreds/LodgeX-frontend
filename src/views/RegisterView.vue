@@ -127,10 +127,10 @@
                   class="block text-sm/6 font-medium text-rich-black"
                   >ID Card</label
                 >
-                <div class="flex items-center">
+                <div class="flex items-center sm:hidden md:flex lg:flex">
                   <InformationCircleIcon class="w-6 h-6 top-1 relative z-50" v-on:mouseover="IDCardInfo = true" v-on:mouseleave="IDCardInfo = false"/>
                   <transition name="info-fade">
-                    <div v-if="IDCardInfo" class="bg-gray-300 z-40 absolute mt-2 ml-10 rounded-lg w-52 text-rich-black p-4">You can use your identification card or driver's license. Please ensure the document is in .PDF or .XLS format and includes both the front and back sides.</div>
+                    <div v-if="IDCardInfo" class="ml-12 bg-gray-300 z-40 absolute rounded-lg w-52 text-rich-black p-4">You can use your identification card or driver's license. Please ensure the document is in .PDF or .XLS format and includes both the front and back sides.</div>
                   </transition>
                 </div>
               </div>
