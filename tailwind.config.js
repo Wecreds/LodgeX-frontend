@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         "rich-black": "#011627",
-        "seashell": "#f7ebe8",
+        "rick-white": "#F4F4F9",
         "primary-color": "#124559",
         "secondary-color": "#598392",
       }
@@ -18,7 +18,7 @@ export default {
       padding: '1rem',
     },
   },
-  
+
   plugins: [],
 }
 

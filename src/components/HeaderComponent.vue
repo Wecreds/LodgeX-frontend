@@ -1,6 +1,6 @@
 <template>
   <div class="fixed bg-black opacity-50 min-h-screen w-screen z-40" v-if="loginComponentOpen"></div>
-  <header class="bg-seashell shadow-2xl">
+  <header class="bg-rich-white shadow-2xl">
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">

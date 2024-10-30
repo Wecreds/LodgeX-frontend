@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-2xl w-fit p-16 bg-seashell absolute z-50">
+  <div class="shadow-2xl w-fit p-16 bg-rich-white absolute z-50">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <div class="absolute top-2 right-2 p-0 cursor-pointer">
             <ArrowRightIcon class="w-6 h-6" @click="$emit('closeLoginComponent')"/>
