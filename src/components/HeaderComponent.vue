@@ -16,7 +16,7 @@
       </div>
       <PopoverGroup class="hidden lg:flex lg:gap-x-12">
         <Popover class="relative">
-          <PopoverButton class="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900">
+          <PopoverButton class="flex items-center gap-x-1 text-sm/6 font-semibold text-rich-black">
             Lorem Ipsum
             <ChevronDownIcon class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
           </PopoverButton>
@@ -26,10 +26,10 @@
               <div class="p-4">
                 <div v-for="item in products" :key="item.name" class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
                   <div class="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                    <component :is="item.icon" class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
+                    <component :is="item.icon" class="h-6 w-6 text-gray-600 group-hover:text-primary-color" aria-hidden="true" />
                   </div>
                   <div class="flex-auto">
-                    <a :href="item.href" class="block font-semibold text-gray-900">
+                    <a :href="item.href" class="block font-semibold text-rich-black">
                       {{ item.name }}
                       <span class="absolute inset-0" />
                     </a>
@@ -41,12 +41,12 @@
           </transition>
         </Popover>
 
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Lorem Ipsum</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Lorem Ipsum</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Lorem Ipsum</a>
+        <a href="#" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</a>
+        <a href="#" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</a>
+        <a href="#" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</a>
       </PopoverGroup>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="#" class="text-sm/6 font-semibold text-gray-900" @click="loginComponentOpen = !loginComponentOpen">Log in</a>
+        <a href="#" class="text-sm/6 font-semibold text-rich-black" @click="loginComponentOpen = !loginComponentOpen">Log in</a>
       </div>
     </nav>
     <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -66,20 +66,20 @@
           <div class="-my-6 divide-y divide-gray-500/10">
             <div class="space-y-2 py-6">
               <Disclosure as="div" class="-mx-3" v-slot="{ open }">
-                <DisclosureButton class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                <DisclosureButton class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-rich-black hover:bg-gray-50">
                   Lorem Ipsum
                   <ChevronDownIcon :class="[open ? 'rotate-180' : '', 'h-5 w-5 flex-none']" aria-hidden="true" />
                 </DisclosureButton>
                 <DisclosurePanel class="mt-2 space-y-2">
-                  <DisclosureButton v-for="item in [...products]" :key="item.name" as="a" :href="item.href" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">{{ item.name }}</DisclosureButton>
+                  <DisclosureButton v-for="item in [...products]" :key="item.name" as="a" :href="item.href" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-rich-black hover:bg-gray-50">{{ item.name }}</DisclosureButton>
                 </DisclosurePanel>
               </Disclosure>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Lorem Ipsum</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Lorem Ipsum</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Lorem Ipsum</a>
+              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">Lorem Ipsum</a>
+              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">Lorem Ipsum</a>
+              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">Lorem Ipsum</a>
             </div>
             <div class="py-6">
-              <a class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="loginComponentOpen = !loginComponentOpen">Log in</a>
+              <a class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-rich-black hover:bg-gray-50" @click="loginComponentOpen = !loginComponentOpen">Log in</a>
             </div>
           </div>
         </div>
