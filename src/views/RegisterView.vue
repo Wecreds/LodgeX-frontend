@@ -1,9 +1,8 @@
 <template>
-  <div class="absolute bottom-5 right-5 p-0 cursor-pointer">
+  <div class="fixed bottom-5 left-5 p-0 cursor-pointer">
     <RouterLink to="/">
-      <ArrowRightIcon
+      <HomeIcon
         class="w-6 h-6 text-rich-black"
-        @click="$emit('closeLoginComponent')"
       />
     </RouterLink>
   </div>
@@ -87,6 +86,81 @@
           </form>
         </div>
         <div v-else-if="step === 2" key="step2">
+          <form class="space-y-6" action="#" method="POST" @submit.prevent="nextStep()">
+            <div>
+              <label for="name" class="block text-sm/6 font-medium text-rich-black"
+                >Name</label
+              >
+              <div class="mt-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required=""
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
+                />
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <label
+                  for="telephone"
+                  class="block text-sm/6 font-medium text-rich-black"
+                  >Telephone</label
+                >
+              </div>
+              <div class="mt-2">
+                <input
+                  id="telephone"
+                  name="telephone"
+                  type="number"
+                  required=""
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none overflow-hidden"
+                />
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <label
+                  for="document"
+                  class="block text-sm/6 font-medium text-rich-black"
+                  >ID Card</label
+                >
+                <div class="items-center hidden md:flex">
+                  <InformationCircleIcon class="w-6 h-6 top-1 relative z-50" v-on:mouseover="IDCardInfo = true" v-on:mouseleave="IDCardInfo = false"/>
+                  <transition name="info-fade">
+                    <div v-if="IDCardInfo" class="ml-12 bg-gray-300 z-40 absolute rounded-lg w-52 text-rich-black p-4">You can use your identification card or driver's license. Please ensure the document is in .PDF or .XLS format and includes both the front and back sides.</div>
+                  </transition>
+                </div>
+              </div>
+              <div class="mt-2">
+                <input
+                  id="document"
+                  name="document"
+                  type="file"
+                  required=""
+                  class="block w-full outline-none"
+                  accept="application/pdf,application/vnd.ms-excel"
+                />
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <button
+                @click="prevStep()"
+                class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
+              >
+                <ArrowLeftIcon class="w-6 h-6 "/>
+              </button>
+              <button
+                type="submit"
+                class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
+              >
+                <ArrowRightIcon class="w-6 h-6"/>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div v-else-if="step === 3" key="step3">
           <form class="space-y-6" action="#" method="POST" @submit.prevent="prevStep()">
             <div>
               <label for="name" class="block text-sm/6 font-medium text-rich-black"
@@ -127,7 +201,7 @@
                   class="block text-sm/6 font-medium text-rich-black"
                   >ID Card</label
                 >
-                <div class="flex items-center sm:hidden md:flex lg:flex">
+                <div class="items-center hidden md:flex">
                   <InformationCircleIcon class="w-6 h-6 top-1 relative z-50" v-on:mouseover="IDCardInfo = true" v-on:mouseleave="IDCardInfo = false"/>
                   <transition name="info-fade">
                     <div v-if="IDCardInfo" class="ml-12 bg-gray-300 z-40 absolute rounded-lg w-52 text-rich-black p-4">You can use your identification card or driver's license. Please ensure the document is in .PDF or .XLS format and includes both the front and back sides.</div>
@@ -172,7 +246,7 @@
 <script setup>
 import { ref } from 'vue';
 
-import { ArrowRightIcon } from '@heroicons/vue/24/solid'
+import { ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '@heroicons/vue/24/solid'
 import { InformationCircleIcon } from '@heroicons/vue/24/outline'
 
 const step = ref(1);
