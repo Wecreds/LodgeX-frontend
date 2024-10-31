@@ -99,7 +99,7 @@
           </form>
         </div>
         <div v-else-if="step === 3" key="step3">
-          <form class="space-y-6" action="#" method="POST" @submit.prevent="prevStep()">
+          <form class="space-y-6" action="#" method="POST" @submit.prevent="registerUser()">
             <div class="flex justify-between">
               <div class="flex flex-col">
                 <label for="name" class="block text-sm/6 font-medium text-rich-black">Birth Date</label>
@@ -108,12 +108,28 @@
               </div>
               <div class="flex flex-col justify-center">
                 <label for="name" class="block text-sm/6 font-medium text-rich-black">Nationality</label>
-                <select v-model="selectedNationality" id="nationality"
-                  class="block w-fit rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-2">
-                  <option v-for="nationality in nationalities" :key="nationality" :value="nationality">
-                    {{ nationality }}
-                  </option>
-                </select>
+                <NationalitySelectorComponent />
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="flex flex-col w-6/12">
+                <label for="name" class="block text-sm/6 font-medium text-rich-black">Country</label>
+                <CountrySelectorComponent v-model="selectedCountry" />
+              </div>
+              <div class="flex flex-col justify-center w-5/12 items-center">
+                <label for="name" class="block text-sm/6 font-medium text-rich-black text-right">State</label>
+                <StateSelectorComponent :selectedCountry="selectedCountry" v-model="selectedState" />
+              </div>
+            </div>
+            <div class="flex justify-between gap-4">
+              <div class="flex flex-col w-8/12">
+                <label for="name" class="block text-sm/6 font-medium text-rich-black">City</label>
+                <CitySelectorComponent :selectedCountry="selectedCountry" :selectedState="selectedState" />
+              </div>
+              <div class="flex flex-col justify-center w-1/3 items-center">
+                <label for="name" class="block text-sm/6 font-medium text-rich-black text-right">Postal Code</label>
+                <input id="name" name="name" type="text" required=""
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1" />
               </div>
             </div>
             <div class="flex justify-between">
@@ -122,31 +138,25 @@
                 <input id="name" name="name" type="text" required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1" />
               </div>
-              <div class="flex flex-col justify-center w-1/3 items-center">
+              <div class="flex flex-col justify-center w-5/12 items-center">
                 <label for="name" class="block text-sm/6 font-medium text-rich-black text-right">Number</label>
                 <input id="name" name="name" type="text" required=""
                   class="block w-1/2 rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1" />
               </div>
             </div>
-            <div>
-              <div class="flex items-center justify-between">
-                <label for="document" class="block text-sm/6 font-medium text-rich-black">ID Card</label>
-              </div>
-              <div class="mt-2">
-                <input id="document" name="document" type="file" required="" class="block w-full outline-none"
-                  accept="application/pdf,application/vnd.ms-excel" />
-              </div>
-            </div>
-            <div>
+            <div class="flex gap-4">
+              <button @click="prevStep()" type="reset"
+                class="flex w-4/12 justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color">
+                <ArrowLeftIcon class="w-6 h-6" />
+              </button>
               <button type="submit"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color">
-                Sign up
+                Finish sign up
               </button>
             </div>
           </form>
         </div>
       </transition>
-
       <p class="mt-10 text-center text-sm/6 text-gray-500">
         Already have an account?
         {{ ' ' }}
@@ -156,38 +166,33 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  HomeIcon,
-} from '@heroicons/vue/24/solid'
+import { ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '@heroicons/vue/24/solid'
 import { InformationCircleIcon } from '@heroicons/vue/24/outline'
 
-const step = ref(1)
+import NationalitySelectorComponent from '@/components/NationalitySelectorComponent.vue';
+import CountrySelectorComponent from '@/components/CountrySelectorComponent.vue';
+import StateSelectorComponent from '@/components/StateSelectorComponent.vue';
+import CitySelectorComponent from '@/components/CitySelectorComponent.vue';
+
+const step = ref(3)
 
 const IDCardInfo = ref(false)
 
-const selectedNationality = ref(null)
-const nationalities = ref([])
+const selectedCountry = ref(null)
+const selectedState = ref(null)
 
 const nextStep = () => {
   step.value++
 }
-
 const prevStep = () => {
   step.value--
 }
 
-onMounted(() => {
-  fetch('/nationalities.json')
-    .then(response => response.json())
-    .then(data => {
-      nationalities.value = data
-    })
-    .catch(error => console.error(error))
-})
+const registerUser = () => {
+  console.log('User registered')
+}
 </script>
 <style scoped>
 .form-fade-slide-enter-active,
