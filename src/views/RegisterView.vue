@@ -12,7 +12,7 @@
       </h2>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <transition name="form-fade-slide" mode="out-in">
+      <transition :name="transitionName" mode="out-in">
         <div v-if="step === 1" key="step1">
           <form class="space-y-6" action="#" method="POST" @submit.prevent="nextStep()">
             <div>
@@ -176,18 +176,23 @@ import CountrySelectorComponent from '@/components/CountrySelectorComponent.vue'
 import StateSelectorComponent from '@/components/StateSelectorComponent.vue';
 import CitySelectorComponent from '@/components/CitySelectorComponent.vue';
 
-const step = ref(3)
+const step = ref(1)
 
 const IDCardInfo = ref(false)
 
 const selectedCountry = ref(null)
 const selectedState = ref(null)
 
+const transitionName = ref("slide-right");
+
 const nextStep = () => {
-  step.value++
+  transitionName.value = "slide-right";
+  step.value++;
 }
+
 const prevStep = () => {
-  step.value--
+  transitionName.value = "slide-left";
+  step.value--;
 }
 
 const registerUser = () => {
@@ -195,11 +200,34 @@ const registerUser = () => {
 }
 </script>
 <style scoped>
-.form-fade-slide-enter-active,
-.form-fade-slide-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.slide-right-enter-from {
+  transform: translateX(20%);
+  opacity: 0;
+}
+
+.slide-right-leave-to {
+  transform: translateX(-20%);
+  opacity: 0;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.slide-left-enter-from {
+  transform: translateX(-20%);
+  opacity: 0;
+}
+
+.slide-left-leave-to {
+  transform: translateX(20%);
+  opacity: 0;
 }
 
 .info-fade-enter-active,
@@ -210,19 +238,6 @@ const registerUser = () => {
 .info-fade-enter-from,
 .info-fade-leave-to {
   opacity: 0;
-}
-
-.form-fade-slide-enter-from,
-.form-fade-slide-leave-to {
-  opacity: 0;
-}
-
-.form-fade-slide-enter-from {
-  transform: translateX(-20%);
-}
-
-.form-fade-slide-leave-to {
-  transform: translateX(20%);
 }
 
 input::-webkit-outer-spin-button,
