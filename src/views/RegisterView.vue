@@ -1,9 +1,7 @@
 <template>
   <div class="fixed bottom-5 left-5 p-0 cursor-pointer">
     <RouterLink to="/">
-      <HomeIcon
-        class="w-6 h-6 text-rich-black"
-      />
+      <HomeIcon class="w-6 h-6 text-rich-black" />
     </RouterLink>
   </div>
   <div
@@ -24,9 +22,16 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <transition name="form-fade-slide" mode="out-in">
         <div v-if="step === 1" key="step1">
-          <form class="space-y-6" action="#" method="POST" @submit.prevent="nextStep()">
+          <form
+            class="space-y-6"
+            action="#"
+            method="POST"
+            @submit.prevent="nextStep()"
+          >
             <div>
-              <label for="email" class="block text-sm/6 font-medium text-rich-black"
+              <label
+                for="email"
+                class="block text-sm/6 font-medium text-rich-black"
                 >Email address</label
               >
               <div class="mt-2">
@@ -86,9 +91,16 @@
           </form>
         </div>
         <div v-else-if="step === 2" key="step2">
-          <form class="space-y-6" action="#" method="POST" @submit.prevent="nextStep()">
+          <form
+            class="space-y-6"
+            action="#"
+            method="POST"
+            @submit.prevent="nextStep()"
+          >
             <div>
-              <label for="name" class="block text-sm/6 font-medium text-rich-black"
+              <label
+                for="name"
+                class="block text-sm/6 font-medium text-rich-black"
                 >Name</label
               >
               <div class="mt-2">
@@ -127,9 +139,20 @@
                   >ID Card</label
                 >
                 <div class="items-center hidden md:flex">
-                  <InformationCircleIcon class="w-6 h-6 top-1 relative z-50" v-on:mouseover="IDCardInfo = true" v-on:mouseleave="IDCardInfo = false"/>
+                  <InformationCircleIcon
+                    class="w-6 h-6 top-1 relative z-50"
+                    v-on:mouseover="IDCardInfo = true"
+                    v-on:mouseleave="IDCardInfo = false"
+                  />
                   <transition name="info-fade">
-                    <div v-if="IDCardInfo" class="ml-12 bg-gray-300 z-40 absolute rounded-lg w-52 text-rich-black p-4">You can use your identification card or driver's license. Please ensure the document is in .PDF or .XLS format and includes both the front and back sides.</div>
+                    <div
+                      v-if="IDCardInfo"
+                      class="ml-12 bg-gray-300 z-40 absolute rounded-lg w-52 text-rich-black p-4"
+                    >
+                      You can use your identification card or driver's license.
+                      Please ensure the document is in .PDF or .XLS format and
+                      includes both the front and back sides.
+                    </div>
                   </transition>
                 </div>
               </div>
@@ -147,50 +170,82 @@
             <div class="flex gap-4">
               <button
                 @click="prevStep()"
+                type="reset"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
               >
-                <ArrowLeftIcon class="w-6 h-6 "/>
+                <ArrowLeftIcon class="w-6 h-6" />
               </button>
               <button
                 type="submit"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
               >
-                <ArrowRightIcon class="w-6 h-6"/>
+                <ArrowRightIcon class="w-6 h-6" />
               </button>
             </div>
           </form>
         </div>
         <div v-else-if="step === 3" key="step3">
-          <form class="space-y-6" action="#" method="POST" @submit.prevent="prevStep()">
-            <div>
-              <label for="name" class="block text-sm/6 font-medium text-rich-black"
-                >Name</label
-              >
-              <div class="mt-2">
+          <form
+            class="space-y-6"
+            action="#"
+            method="POST"
+            @submit.prevent="prevStep()"
+          >
+            <div class="flex justify-between">
+              <div class="flex flex-col">
+                <label
+                  for="name"
+                  class="block text-sm/6 font-medium text-rich-black"
+                  >Birth Date</label
+                >
+                <input
+                  id="name"
+                  name="name"
+                  type="date"
+                  required=""
+                  class="block w-fit rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
+                />
+              </div>
+              <div class="flex flex-col justify-center">
+                <label
+                  for="name"
+                  class="block text-sm/6 font-medium text-rich-black"
+                  >Nationality</label
+                >
+                <select v-model="selectedNationality" id="nationality"  class="block w-fit rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-2">
+                  <option v-for="nationality in nationalities" :key="nationality" :value="nationality">
+                    {{ nationality }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="flex flex-col w-9/12">
+                <label
+                  for="name"
+                  class="block text-sm/6 font-medium text-rich-black"
+                  >Street Address</label
+                >
                 <input
                   id="name"
                   name="name"
                   type="text"
                   required=""
-                  class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
                 />
               </div>
-            </div>
-            <div>
-              <div class="flex items-center justify-between">
+              <div class="flex flex-col justify-center w-1/3 items-center">
                 <label
-                  for="telephone"
-                  class="block text-sm/6 font-medium text-rich-black"
-                  >Telephone</label
+                  for="name"
+                  class="block text-sm/6 font-medium text-rich-black text-right"
+                  >Number</label
                 >
-              </div>
-              <div class="mt-2">
                 <input
-                  id="telephone"
-                  name="telephone"
-                  type="number"
+                  id="name"
+                  name="name"
+                  type="text"
                   required=""
-                  class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none overflow-hidden"
+                  class="block w-1/2 rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
                 />
               </div>
             </div>
@@ -201,12 +256,6 @@
                   class="block text-sm/6 font-medium text-rich-black"
                   >ID Card</label
                 >
-                <div class="items-center hidden md:flex">
-                  <InformationCircleIcon class="w-6 h-6 top-1 relative z-50" v-on:mouseover="IDCardInfo = true" v-on:mouseleave="IDCardInfo = false"/>
-                  <transition name="info-fade">
-                    <div v-if="IDCardInfo" class="ml-12 bg-gray-300 z-40 absolute rounded-lg w-52 text-rich-black p-4">You can use your identification card or driver's license. Please ensure the document is in .PDF or .XLS format and includes both the front and back sides.</div>
-                  </transition>
-                </div>
               </div>
               <div class="mt-2">
                 <input
@@ -244,29 +293,51 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue'
 
-import { ArrowLeftIcon, ArrowRightIcon, HomeIcon } from '@heroicons/vue/24/solid'
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  HomeIcon,
+} from '@heroicons/vue/24/solid'
 import { InformationCircleIcon } from '@heroicons/vue/24/outline'
 
-const step = ref(1);
+const step = ref(1)
 
-const IDCardInfo = ref(false);
+const IDCardInfo = ref(false)
+
+const selectedNationality = ref(null);
+const nationalities = ref([]);
 
 const nextStep = () => {
-  step.value ++;
-};
-
-const prevStep = () => {
-  step.value --;
-};
-</script>
-<style scoped>
-.form-fade-slide-enter-active, .form-fade-slide-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  step.value++
 }
 
-.info-fade-enter-active, .info-fade-leave-active {
+const prevStep = () => {
+  step.value--
+}
+
+onMounted(() => {
+  fetch('/nationalities.json')
+    .then(response => response.json())
+    .then(data => {
+      nationalities.value = data;
+    })
+    .catch(error => console.error(error));
+});
+
+
+</script>
+<style scoped>
+.form-fade-slide-enter-active,
+.form-fade-slide-leave-active {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.info-fade-enter-active,
+.info-fade-leave-active {
   transition: opacity 0.25s ease;
 }
 
@@ -287,10 +358,10 @@ const prevStep = () => {
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
-input[type=number]{
-    -moz-appearance: textfield;
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 </style>
