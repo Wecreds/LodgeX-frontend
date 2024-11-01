@@ -52,9 +52,42 @@
         <a href="#" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</a>
         <a href="#" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</a>
       </PopoverGroup>
-      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end" v-if="!authStore.loggedIn">
         <a href="#" class="text-sm/6 font-semibold text-rich-black"
           @click="loginComponentOpen = !loginComponentOpen">Log in</a>
+      </div>
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end text-rich-black" v-else>
+        <Menu as="div" class="relative inline-block text-left">
+          <div>
+            <MenuButton
+              class="inline-flex justify-center rounded-md text-sm/6 font-semibold focus:outline-none">
+              My Account
+              <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+            </MenuButton>
+          </div>
+          <transition enter-active-class="transition duration-100 ease-out"
+            enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
+            leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
+            leave-to-class="transform scale-95 opacity-0">
+            <MenuItems
+              class="absolute right-0 mt-2 w-56 origin-top-right divide-y rounded-md ring-1 focus:outline-none bg-rich-white">
+              <div class="px-1 py-1">
+                <MenuItem class="hover:underline">
+                <button class='text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm'>
+                  Account settings
+                </button>
+                </MenuItem>
+              </div>
+              <div class="px-1 py-1">
+                <MenuItem class="hover:underline">
+                <button class='text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm' @click="logOut()">
+                  Logout
+                </button>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </transition>
+        </Menu>
       </div>
     </nav>
     <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -83,7 +116,7 @@
                 <DisclosurePanel class="mt-2 space-y-2">
                   <DisclosureButton v-for="item in [...products]" :key="item.name" as="a" :href="item.href"
                     class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-rich-black hover:bg-gray-50">{{
-                    item.name }}</DisclosureButton>
+                      item.name }}</DisclosureButton>
                 </DisclosurePanel>
               </Disclosure>
               <a href="#"
@@ -109,7 +142,6 @@
     <LoginComponent @closeLoginComponent="closeLoginComponent" />
   </div>
 </template>
-
 <script setup>
 import { ref } from 'vue'
 import {
@@ -122,6 +154,7 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
+  Menu, MenuButton, MenuItems, MenuItem
 } from '@headlessui/vue'
 import {
   ArrowPathIcon,
@@ -131,8 +164,20 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { useRouter } from 'vue-router';
 
 import LoginComponent from './LoginComponent.vue'
+
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
+
+const router = useRouter();
+
+const logOut = () => {
+  authStore.unsetToken()
+  router.push('/refresh')
+}
 
 const products = [
   {

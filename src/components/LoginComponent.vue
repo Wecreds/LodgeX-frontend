@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-2xl w-fit px-16 py-10 bg-rich-white absolute z-50 rounded-sm">
+  <div class="shadow-2xl w-fit h-fit px-16 py-10 bg-rich-white absolute z-50 rounded-sm">
     <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <div class="absolute top-5 right-5 p-0 cursor-pointer" v-if="!isLoginRoute">
@@ -16,12 +16,13 @@
         </h2>
       </div>
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" action="#" method="POST" @submit.prevent="logIn()">
           <div>
             <label for="email" class="block text-sm/6 font-medium text-rich-black">Email address</label>
             <div class="mt-2">
               <input id="email" name="email" type="email" autocomplete="email" required=""
-                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none" />
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
+                v-model="email" />
             </div>
           </div>
           <div>
@@ -33,7 +34,8 @@
             </div>
             <div class="mt-2">
               <input id="password" name="password" type="password" autocomplete="current-password" required=""
-                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none" />
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
+                v-model="password" />
             </div>
           </div>
           <div>
@@ -53,11 +55,49 @@
   </div>
 </template>
 <script setup>
-import { useRoute, RouterLink } from 'vue-router'
-import { computed } from 'vue'
+import { useRoute, useRouter, RouterLink } from 'vue-router'
+import { computed, ref } from 'vue'
+
 import { ArrowRightIcon } from '@heroicons/vue/24/solid'
+import Swal from 'sweetalert2'
+
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore()
 
 const route = useRoute()
+const router = useRouter()
+
+const email = ref('')
+const password = ref('')
 
 const isLoginRoute = computed(() => route.path === '/login')
+const credentials = computed(() => {
+  return {
+    email: email.value,
+    password: password.value
+  }
+})
+
+const logIn = async () => {
+  try {
+    await authStore.setToken(credentials.value)
+    router.push({ name: 'home' })
+  } catch (error) {
+    if (error.status === 401) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No active account found with the given credentials',
+        icon: 'error',
+      })
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Unknown error occurred, try later',
+        icon: 'error',
+      })
+    }
+  }
+}
+
 </script>

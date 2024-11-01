@@ -13,6 +13,11 @@ const router = createRouter({
           name: 'home',
           component: () => import('../views/HomeView.vue'),
         },
+        {
+          path: '/account',
+          name: 'account',
+          component: () => import('../views/AccountView.vue'),
+        },
       ],
     },
     {
@@ -34,6 +39,11 @@ const router = createRouter({
           path: '/forgot-password',
           name: 'forgot-password',
           component: () => import('../views/ForgotPasswordView.vue'),
+        },
+        {
+          path: '/refresh',
+          name: 'refresh',
+          component: () => import('../views/RefreshView.vue'),
         }
       ],
     },
