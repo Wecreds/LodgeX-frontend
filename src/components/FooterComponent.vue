@@ -3,9 +3,9 @@
     <div class="mx-auto w-full max-w-screen-xl py-6 lg:py-8">
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
-          <a href="/" class="flex items-center">
+          <RouterLink to="/" class="flex items-center">
             <img src="https://placehold.co/600x400?text=Logo" class="w-1/4 me-3" alt="Logo" />
-          </a>
+          </RouterLink>
         </div>
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
           <div>
@@ -23,10 +23,10 @@
             <h2 class="mb-6 text-sm font-semibold text-rich-black uppercase">Legal</h2>
             <ul class="text-gray-500 font-medium">
               <li class="mb-4">
-                <a href="#" class="hover:underline">Privacy Policy</a>
+                <RouterLink to="/" class="hover:underline">Privacy Policy</RouterLink>
               </li>
               <li>
-                <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                <RouterLink to="#" class="hover:underline">Terms &amp; Conditions</RouterLink>
               </li>
             </ul>
           </div>
@@ -55,4 +55,6 @@
     </div>
   </footer>
 </template>
-<script setup></script>
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>

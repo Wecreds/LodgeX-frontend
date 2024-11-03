@@ -66,7 +66,7 @@
       <p class="mt-10 text-center text-sm/6 text-gray-500">
         Remembered your password?
         {{ ' ' }}
-        <a href="login" class="font-semibold text-primary-color hover:text-secondary-color">Sign in</a>
+        <RouterLink to="login" class="font-semibold text-primary-color hover:text-secondary-color">Sign in</RouterLink>
       </p>
     </div>
   </div>

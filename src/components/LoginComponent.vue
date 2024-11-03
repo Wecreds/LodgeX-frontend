@@ -29,7 +29,7 @@
             <div class="flex items-center justify-between">
               <label for="password" class="block text-sm/6 font-medium text-rich-black">Password</label>
               <div class="text-sm">
-                <a href="#" class="font-semibold text-primary-color hover:text-secondary-color">Forgot password?</a>
+                <RouterLink to="/forgot-password" class="font-semibold text-primary-color hover:text-secondary-color">Forgot password?</RouterLink>
               </div>
             </div>
             <div class="mt-2">
@@ -48,7 +48,7 @@
         <p class="mt-10 text-center text-sm/6 text-gray-500">
           Don't have a account?
           {{ ' ' }}
-          <a href="register" class="font-semibold text-primary-color hover:text-secondary-color">Sign up</a>
+          <RouterLink to="/register "class="font-semibold text-primary-color hover:text-secondary-color">Sign up</a>
         </p>
       </div>
     </div>
