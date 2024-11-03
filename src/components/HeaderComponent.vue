@@ -59,8 +59,7 @@
       <div class="hidden lg:flex lg:flex-1 lg:justify-end text-rich-black" v-else>
         <Menu as="div" class="relative inline-block text-left">
           <div>
-            <MenuButton
-              class="inline-flex justify-center rounded-md text-sm/6 font-semibold focus:outline-none">
+            <MenuButton class="inline-flex justify-center rounded-md text-sm/6 font-semibold focus:outline-none">
               My Account
               <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
             </MenuButton>
@@ -70,7 +69,7 @@
             leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
             leave-to-class="transform scale-95 opacity-0">
             <MenuItems
-              class="absolute right-0 mt-2 w-56 origin-top-right divide-y rounded-md ring-1 focus:outline-none bg-rich-white">
+              class="absolute right-0 mt-2 w-56 origin-top-right divide-y focus:outline-none bg-rich-white  rounded-sm shadow-2xl ">
               <div class="px-1 py-1">
                 <MenuItem class="hover:underline">
                 <button class='text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm'>

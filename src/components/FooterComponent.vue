@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-rich-white top-shadow">
+  <footer class="bg-rich-white shadow-top">
     <div class="mx-auto w-full max-w-screen-xl py-6 lg:py-8">
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
@@ -56,8 +56,3 @@
   </footer>
 </template>
 <script setup></script>
-<style>
-.top-shadow {
-  box-shadow: 0 -25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-</style>

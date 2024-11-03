@@ -8,7 +8,9 @@ export default {
         "rich-white": "#F4F4F9",
         "primary-color": "#124559",
         "secondary-color": "#598392",
-      }
+      },
+      boxShadow: {
+        "top": "0px -25px 50px -12px rgba(0, 0, 0, 0.25)"
     },
     fontFamily: {
       Roboto: ['Roboto', 'sans-serif'],
@@ -20,5 +22,4 @@ export default {
   },
 
   plugins: [],
-}
-
+}}

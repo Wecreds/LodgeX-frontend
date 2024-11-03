@@ -82,7 +82,7 @@ const credentials = computed(() => {
 const logIn = async () => {
   try {
     await authStore.setToken(credentials.value)
-    router.push({ name: 'home' })
+    route.path === '/login' ? router.push({ name: 'home' }) : router.push({ name: 'refresh' })
   } catch (error) {
     if (error.status === 401) {
       Swal.fire({
