@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-rich-white shadow-top">
-    <div class="mx-auto w-full max-w-screen-xl py-6 lg:py-8">
-      <div class="md:flex md:justify-between">
+    <div class="mx-auto w-full max-w-screen-xl py-6 lg:py-8 px-5 lg:px-0">
+      <div class="md:flex sm:justify-center md:justify-between">
         <div class="mb-6 md:mb-0">
           <RouterLink to="/" class="flex items-center">
             <img src="https://placehold.co/600x400?text=Logo" class="w-1/4 me-3" alt="Logo" />

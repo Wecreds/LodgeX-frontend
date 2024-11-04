@@ -1,6 +1,6 @@
 <template>
-  <div class="fixed bg-black opacity-50 min-h-screen w-screen z-40" v-if="loginComponentOpen"></div>
-  <header class="bg-rich-white shadow-2xl">
+  <div class="fixed bg-black w-full min-h-screen opacity-50 z-40" v-if="loginComponentOpen"></div>
+  <header class="bg-rich-white shadow-2xl w-full">
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
       <div class="flex lg:flex-1">
         <RouterLink to="/" class="-m-1.5 p-1.5">
@@ -52,9 +52,9 @@
         <RouterLink to="/" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</RouterLink>
         <RouterLink to="/" class="text-sm/6 font-semibold text-rich-black">Lorem Ipsum</RouterLink>
       </PopoverGroup>
-      <div class="hidden lg:flex lg:flex-1 lg:justify-end" v-if="!authStore.loggedIn">
-        <span class="text-sm/6 font-semibold text-rich-black"
-          @click="loginComponentOpen = !loginComponentOpen">Log in</span>
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end cursor-pointer" v-if="!authStore.loggedIn">
+        <span class="text-sm/6 font-semibold text-rich-black" @click="loginComponentOpen = !loginComponentOpen">Log
+          in</span>
       </div>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end text-rich-black" v-else>
         <Menu as="div" class="relative inline-block text-left">
@@ -92,7 +92,7 @@
     <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
       <div class="fixed inset-0 z-10" />
       <DialogPanel
-        class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        class="fixed inset-y-0 right-0 z-10 w-fit overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
         <div class="flex items-center justify-between">
           <RouterLink to="/" class="-m-1.5 p-1.5">
             <span class="sr-only">Bella Vista</span>
@@ -100,7 +100,7 @@
           </RouterLink>
           <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="mobileMenuOpen = false">
             <span class="sr-only">Close menu</span>
-            <XMarkIcon class="h-6 w-6" aria-hidden="true" />
+            <XMarkIcon class="h-6 w-6 mr-2" aria-hidden="true" />
           </button>
         </div>
         <div class="mt-6 flow-root">
@@ -119,18 +119,36 @@
                 </DisclosurePanel>
               </Disclosure>
               <RouterLink to="/"
-                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">Lorem
+                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">
+                Lorem
                 Ipsum</RouterLink>
               <RouterLink to="/"
-                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">Lorem
+                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">
+                Lorem
                 Ipsum</RouterLink>
               <RouterLink to="/"
-                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">Lorem
-                Ipsum</RouterLink>
+                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-rich-black hover:bg-gray-50">
+                Lorem
+                Ipsaum</RouterLink>
             </div>
-            <div class="py-6">
-              <a class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-rich-black hover:bg-gray-50"
-                @click="loginComponentOpen = !loginComponentOpen">Log in</a>
+            <div class="py-6 hover:bg-gray-50 cursor-pointer" v-if="!authStore.loggedIn">
+              <button class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-rich-black"
+                @click="loginComponentOpen = !loginComponentOpen, mobileMenuOpen = false">Log in</button>
+            </div>
+            <div class="text-rich-black" v-else>
+              <Disclosure as="div" class="-mx-3" v-slot="{ open }">
+                <DisclosureButton
+                  class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-rich-black hover:bg-gray-50">
+                  My account
+                  <ChevronDownIcon :class="[open ? 'rotate-180' : '', 'h-5 w-5 flex-none']" aria-hidden="true" />
+                </DisclosureButton>
+                <DisclosurePanel class="mt-2 space-y-2 flex flex-col justify-center">
+                  <DisclosureButton
+                    class="block rounded-lg py-2 text-sm/7 font-semibold text-rich-black hover:bg-gray-50"><RouterLink to="/account" >Account settings</RouterLink></DisclosureButton>
+                    <DisclosureButton
+                    class="block rounded-lg py-2 text-sm/7 font-semibold text-rich-black hover:bg-gray-50" @click="logOut()" >Log out</DisclosureButton>
+                </DisclosurePanel>
+              </Disclosure>
             </div>
           </div>
         </div>
@@ -163,7 +181,7 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 import LoginComponent from './LoginComponent.vue'
 

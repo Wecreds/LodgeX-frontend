@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-2xl w-fit h-fit px-16 py-10 bg-rich-white absolute z-50 rounded-sm">
+  <div class="shadow-2xl w-fit h-fit bg-rich-white absolute z-50 rounded-sm lg:px-15 lg:py-9 md:px-14 md:py-5 sm:py-0 sm:px-12 shrink">
     <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <div class="absolute top-5 right-5 p-0 cursor-pointer" v-if="!isLoginRoute">
@@ -11,7 +11,7 @@
           </RouterLink>
         </div>
         <img class="mx-auto h-10 w-auto" src="https://placehold.co/600x400?text=Logo" alt="Logo" />
-        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black">
+        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black md:text-xl/9 sm:text-lg/9">
           Sign in to your account
         </h2>
       </div>
@@ -48,7 +48,7 @@
         <p class="mt-10 text-center text-sm/6 text-gray-500">
           Don't have a account?
           {{ ' ' }}
-          <RouterLink to="/register "class="font-semibold text-primary-color hover:text-secondary-color">Sign up</a>
+          <RouterLink to="/register" class="font-semibold text-primary-color hover:text-secondary-color">Sign up</RouterLink>
         </p>
       </div>
     </div>
