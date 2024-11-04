@@ -65,7 +65,7 @@
             <div>
               <div class="flex items-center justify-between">
                 <label
-                  for="password"
+                  for="confirm password"
                   class="block text-sm/6 font-medium text-rich-black"
                   >Confirm Password</label
                 >
@@ -194,13 +194,13 @@
             <div class="flex justify-between">
               <div class="flex flex-col">
                 <label
-                  for="name"
+                  for="birth date"
                   class="block text-sm/6 font-medium text-rich-black"
                   >Birth Date</label
                 >
                 <input
-                  id="name"
-                  name="name"
+                  id="birth"
+                  name="birth"
                   type="date"
                   required=""
                   class="block w-fit rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
@@ -208,7 +208,7 @@
               </div>
               <div class="flex flex-col justify-center">
                 <label
-                  for="name"
+                  for="nationality"
                   class="block text-sm/6 font-medium text-rich-black"
                   >Nationality</label
                 >
@@ -218,7 +218,7 @@
             <div class="flex justify-between">
               <div class="flex flex-col w-6/12">
                 <label
-                  for="name"
+                  for="country"
                   class="block text-sm/6 font-medium text-rich-black"
                   >Country</label
                 >
@@ -226,7 +226,7 @@
               </div>
               <div class="flex flex-col justify-center w-5/12 items-center">
                 <label
-                  for="name"
+                  for="state"
                   class="block text-sm/6 font-medium text-rich-black text-right"
                   >State</label
                 >
@@ -239,7 +239,7 @@
             <div class="flex justify-between gap-4">
               <div class="flex flex-col w-8/12">
                 <label
-                  for="name"
+                  for="city"
                   class="block text-sm/6 font-medium text-rich-black"
                   >City</label
                 >
@@ -250,7 +250,7 @@
               </div>
               <div class="flex flex-col justify-center w-1/3 items-center">
                 <label
-                  for="name"
+                  for="postal code"
                   class="block text-sm/6 font-medium text-rich-black text-right"
                   >Postal Code</label
                 >
@@ -266,7 +266,7 @@
             <div class="flex justify-between">
               <div class="flex flex-col w-9/12">
                 <label
-                  for="name"
+                  for="street address"
                   class="block text-sm/6 font-medium text-rich-black"
                   >Street Address</label
                 >
@@ -280,13 +280,13 @@
               </div>
               <div class="flex flex-col justify-center w-5/12 items-center">
                 <label
-                  for="name"
+                  for="number"
                   class="block text-sm/6 font-medium text-rich-black text-right"
                   >Number</label
                 >
                 <input
-                  id="name"
-                  name="name"
+                  id="number"
+                  name="number"
                   type="text"
                   required=""
                   class="block w-1/2 rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
@@ -358,7 +358,7 @@ const prevStep = () => {
 }
 
 const registerUser = () => {
-  console.log('User registered')
+  ('User registered')
 }
 </script>
 <style scoped>

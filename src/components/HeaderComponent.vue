@@ -127,19 +127,20 @@
               class="absolute right-0 mt-2 w-56 origin-top-right divide-y focus:outline-none bg-rich-white rounded-sm shadow-2xl"
             >
               <div class="px-1 py-1">
-                <MenuItem class="hover:underline">
-                  <button
-                    class="text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm"
-                  >
-                    <RouterLink to="/account">Account settings</RouterLink>
-                  </button>
+                <RouterLink to="/account">
+                  <MenuItem class="hover:underline">
+                    <button
+                      class="text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm"
+                      >
+                      Account settings
+                    </button>
                 </MenuItem>
+              </RouterLink>
               </div>
               <div class="px-1 py-1">
-                <MenuItem class="hover:underline">
+                <MenuItem class="hover:underline" @click="logOut()">
                   <button
                     class="text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm"
-                    @click="logOut()"
                   >
                     Logout
                   </button>
