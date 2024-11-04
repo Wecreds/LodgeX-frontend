@@ -44,7 +44,7 @@ const router = createRouter({
           path: '/refresh',
           name: 'refresh',
           component: () => import('../views/RefreshView.vue'),
-        }
+        },
       ],
     },
   ],

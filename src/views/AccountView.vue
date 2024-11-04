@@ -2,7 +2,7 @@
   <div class="m-12 bg-red-500 p-12 flex">
     <div class="flex flex-col gap-4 px-6 w-1/3">
       <h1 class="text-2xl/9">My Account</h1>
-      <hr class="text-black w-full">
+      <hr class="text-black w-full" />
       <div class="text-xl flex flex-col gap-4">
         <p class="hover:underline hover:text-gray-500">Personal information</p>
         <p class="hover:underline hover:text-gray-500">Account credentials</p>
@@ -14,6 +14,4 @@
     </div>
   </div>
 </template>
-<script setup>
-
-</script>
+<script setup></script>

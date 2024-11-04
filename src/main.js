@@ -8,7 +8,7 @@ import router from './router'
 
 const app = createApp(App)
 
-import "@/plugins/axios"
+import '@/plugins/axios'
 
 app.use(createPinia())
 app.use(router)
