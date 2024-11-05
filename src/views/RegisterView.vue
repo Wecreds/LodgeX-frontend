@@ -40,6 +40,7 @@
                   name="email"
                   type="email"
                   required=""
+                  v-model="newUser.email"
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
               </div>
@@ -57,6 +58,7 @@
                   id="password"
                   name="password"
                   type="password"
+                  v-model="newUser.password"
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
@@ -75,15 +77,18 @@
                   id="password2"
                   name="password2"
                   type="password"
+                  v-model="confirmPassword"
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
+                <p v-if="diffPassword" class="text-center text-red-700 font-bold">Password's doesnt match.</p>
               </div>
             </div>
             <div>
               <button
                 type="submit"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
+                :disabled="diffPassword"
               >
                 Sign up
               </button>
@@ -105,6 +110,7 @@
               >
               <div class="mt-2">
                 <input
+                  v-model="newUser.name"
                   id="name"
                   name="name"
                   type="text"
@@ -126,6 +132,7 @@
                   id="telephone"
                   name="telephone"
                   type="number"
+                  v-model="newUser.telephone"
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none overflow-hidden"
                 />
@@ -161,9 +168,11 @@
                   id="document"
                   name="document"
                   type="file"
+                  @change="handleFileUpload($event)"
+                  capture
                   required=""
                   class="block w-full outline-none"
-                  accept="application/pdf,application/vnd.ms-excel"
+                  accept="multipart/form-data"
                 />
               </div>
             </div>
@@ -203,6 +212,7 @@
                   name="birth"
                   type="date"
                   required=""
+                  v-model="newUser.personal_info.birthDate"
                   class="block w-fit rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
                 />
               </div>
@@ -212,7 +222,7 @@
                   class="block text-sm/6 font-medium text-rich-black"
                   >Nationality</label
                 >
-                <NationalitySelectorComponent />
+                <NationalitySelectorComponent v-model="newUser.personal_info.nationality"/>
               </div>
             </div>
             <div class="flex justify-between">
@@ -246,6 +256,7 @@
                 <CitySelectorComponent
                   :selectedCountry="selectedCountry"
                   :selectedState="selectedState"
+                  v-model="newUser.personal_info.city"
                 />
               </div>
               <div class="flex flex-col justify-center w-1/3 items-center">
@@ -255,10 +266,11 @@
                   >Postal Code</label
                 >
                 <input
-                  id="name"
-                  name="name"
+                  id="postalCode"
+                  name="postalCode"
                   type="text"
                   required=""
+                  v-model="newUser.personal_info.postalCode"
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
                 />
               </div>
@@ -271,25 +283,12 @@
                   >Street Address</label
                 >
                 <input
-                  id="name"
-                  name="name"
+                  id="streetAddress"
+                  name="streetAddress"
                   type="text"
+                  v-model="newUser.personal_info.streetAddress"
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
-                />
-              </div>
-              <div class="flex flex-col justify-center w-5/12 items-center">
-                <label
-                  for="number"
-                  class="block text-sm/6 font-medium text-rich-black text-right"
-                  >Number</label
-                >
-                <input
-                  id="number"
-                  name="number"
-                  type="text"
-                  required=""
-                  class="block w-1/2 rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-1"
                 />
               </div>
             </div>
@@ -324,15 +323,16 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
-
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import Swal from 'sweetalert2'
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
   HomeIcon,
 } from '@heroicons/vue/24/solid'
 import { InformationCircleIcon } from '@heroicons/vue/24/outline'
-
 import NationalitySelectorComponent from '@/components/NationalitySelectorComponent.vue'
 import CountrySelectorComponent from '@/components/CountrySelectorComponent.vue'
 import StateSelectorComponent from '@/components/StateSelectorComponent.vue'
@@ -342,10 +342,73 @@ const step = ref(1)
 
 const IDCardInfo = ref(false)
 
+const router = useRouter()
+
 const selectedCountry = ref(null)
 const selectedState = ref(null)
+const diffPassword = computed(() => confirmPassword.value !== newUser.value.password)
+
+const confirmPassword = ref('')
+
+const userStore = useUserStore()
 
 const transitionName = ref('slide-right')
+
+const newUser = ref({
+  email: undefined,
+  password: undefined,
+  name: undefined,
+  document: undefined,
+  personal_info: {
+    nationality: undefined,
+    country: computed(() => selectedCountry.value),
+    birth_date: undefined,
+    city: undefined,
+    state: computed(() => selectedState.value),
+    street_address: undefined,
+    postal_code: undefined,
+  },
+  telephone: undefined,
+})
+
+function handleFileUpload($event){
+  const file = $event.target.files[0]
+  if (file) {
+    newUser.value.document = file;
+  }
+}
+
+const registerUser = async() => {
+    const response = await userStore.registerUser(newUser.value)
+    if(response.status === 201){
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'User registered successfully, you will be redirected to the login page.',
+        confirmButtonText: 'Ok',
+      }).then(() => {
+        router.push({ name: 'login' })
+      })
+    } else if(response === "email"){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'A account with that email address already exists.',
+      })
+    } else if(response === "telephone"){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'A account with that telephone number already exists.',
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'A unknown error occurred, please try again later.',
+      })
+    }
+}
 
 const nextStep = () => {
   transitionName.value = 'slide-right'
@@ -355,10 +418,6 @@ const nextStep = () => {
 const prevStep = () => {
   transitionName.value = 'slide-left'
   step.value--
-}
-
-const registerUser = () => {
-  ('User registered')
 }
 </script>
 <style scoped>

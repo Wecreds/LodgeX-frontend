@@ -12,4 +12,15 @@ export default class UserService {
     const { data } = await axios.put(`api/users/${user.id}/`, user)
     return data
   }
+  async registerDocument(document) {
+    const { data, status } = await axios.post('api/media/documents/', {file: document},  {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }})
+    return { data, status }
+  }
+  async registerUser(user) {
+    const { data, status } = await axios.post('api/users/', user)
+    return { data, status }
+  }
 }
