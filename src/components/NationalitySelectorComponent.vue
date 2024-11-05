@@ -2,7 +2,8 @@
   <select
     v-model="selectedNationality"
     id="nationality"
-    class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-2"
+    class="block rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none text-center mt-2"
+    :class="path === '/register' ? 'w-full' : 'w-min'"
   >
     <option
       v-for="nationality in nationalities"
@@ -15,8 +16,16 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useUserStore } from '@/stores/user';
 
-const selectedNationality = ref(null)
+
+const route = useRoute()
+
+const path = route.path
+
+const userStore = useUserStore()
+const selectedNationality = ref(userStore.userData.personal_info.nationality, null)
 const nationalities = ref([])
 
 onMounted(() => {
