@@ -33,7 +33,7 @@ const props = defineProps({
   },
 })
 
-const selectedState = ref(userStore.userData.personal_info.state, null)
+const selectedState = ref(userStore.userData?.personal_info.state, null)
 const states = ref(null)
 
 const loadStates = countryName => {

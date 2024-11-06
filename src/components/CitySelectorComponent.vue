@@ -34,7 +34,7 @@ const props = defineProps({
   },
 })
 
-const selectedCity = ref(userStore.userData.personal_info.city, null)
+const selectedCity = ref(userStore.userData?.personal_info.city, null)
 const cities = ref(null)
 
 const fetchCities = () => {

@@ -19,7 +19,7 @@ const route = useRoute()
 
 const path = route.path
 const userStore = useUserStore()
-const selectedCountry = ref(userStore.userData.personal_info.country, null)
+const selectedCountry = ref(userStore.userData?.personal_info.country, null)
 const countries = ref([])
 
 onMounted(() => {
