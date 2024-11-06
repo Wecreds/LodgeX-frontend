@@ -177,9 +177,53 @@
         </div>
       </div>
 
-      <div v-else-if="step === 4" key="step4" class="w-4/6">
+      <div v-else-if="step === 4" key="step4" class="w-full flex flex-col gap-4 bg-gray-200 p-4">
         <div>
           <h1 class="text-2xl/9">Change password</h1>
+        </div>
+        <div class="flex flex-col gap-1">
+          <form class="unstyle-me" action="#" method="POST" @submit.prevent="changePassword(newPassword)">
+          <div class="flex flex-col w-1/3">
+            <div class="flex items-center justify-between">
+              <label for="password" class="block text-sm/6 font-bold text-rich-black">New password</label>
+            </div>
+            <div>
+              <input id="newPassowrd" name="newPassowrd" type="password" v-model="newPassword" required=""
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none overflow-hidden" />
+            </div>
+          </div>
+          <div class="flex flex-col w-1/3">
+            <div class="flex items-center justify-between">
+              <label for="password" class="block text-sm/6 font-bold text-rich-black">Confirm new password</label>
+            </div>
+            <div>
+              <input id="newPassowrd" name="newPassowrd" type="password" v-model="verifyPassword" required=""
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none overflow-hidden" />
+            </div>
+          </div>
+          <div class="flex flex-col w-1/3">
+            <div class="flex items-center justify-between">
+              <label for="password" class="block text-sm/6 font-bold text-rich-black">Current password</label>
+              <div class="text-sm">
+                <RouterLink
+                  to="/forgot-password"
+                  class="font-semibold text-primary-color hover:text-secondary-color"
+                  >Forgot password?</RouterLink
+                >
+              </div>
+            </div>
+            <div>
+              <input id="newPassowrd" name="newPassowrd" type="password" v-model="currentPassword" required=""
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none overflow-hidden" />
+            </div>
+          </div>
+          <div class="mt-2">
+            <button
+                class="flex justify-center rounded-md bg-primary-color px-5 py-3 text-xl/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
+
+                >Set new password</button>
+          </div>
+        </form>
         </div>
       </div>
     </transition>
@@ -204,6 +248,8 @@ const step = ref(1)
 const userCredentials = ref({ email: '', name: '', telephone: '', });
 const userPersonalInfo = ref({ birthDate: '', nationality: '', address: '', city: '', state: '', country: '', postalCode: '', createdAt: '' });
 const currentPassword = ref('')
+const newPassword = ref('')
+const verifyPassword = ref('')
 const bookings = ref()
 
 const editing = ref(false)
@@ -307,6 +353,37 @@ const changePersonalInfo = async () => {
     });;
   }
 };
+
+const changePassword = async(newPassword) => {
+  if (newPassword !== verifyPassword.value) {
+    Swal.fire({
+      title: 'Passwords do not match',
+      text: 'The passwords you entered do not match.',
+      icon: 'error',
+    });
+    return;
+  }
+  const verification = await userStore.verifyPassword(currentPassword.value);
+  if (!verification.verified) {
+    Swal.fire({
+      title: 'Incorrect Password',
+      text: 'The password you entered is incorrect.',
+      icon: 'error',
+    });
+    return;
+  }
+  const response = await userStore.changePassword(newPassword);
+  if (response.status === 200) {
+    Swal.fire({
+      title: 'Success',
+      text: 'Your password has been updated.',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+    }).then(() => {
+      router.push('/refresh')
+    });
+  }
+}
 
 onMounted(async () => {
   await userStore.fetchMe()

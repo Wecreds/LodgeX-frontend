@@ -48,5 +48,10 @@ export const useUserStore = defineStore('user', () => {
     return data.bookings
   }
 
-  return { fetchMyBookings, registerUser, verifyPassword, updateMe, fetchMe, userData }
+  const changePassword = async(password) => {
+    const data = await userService.changePassword(password)
+    return data
+  }
+
+  return { changePassword, fetchMyBookings, registerUser, verifyPassword, updateMe, fetchMe, userData }
 })

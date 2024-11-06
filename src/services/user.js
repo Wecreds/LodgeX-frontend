@@ -28,4 +28,8 @@ export default class UserService {
     const { data } = await axios.get('api/users/my_bookings')
     return data
   }
+  async changePassword(password) {
+    const { data, status } = await axios.patch('api/users/change_password/', {password})
+    return { data, status}
+  }
 }
