@@ -24,4 +24,8 @@ export default class UserService {
     const { data, status } = await axios.post('api/users/', user)
     return { data, status }
   }
+  async fetchMyBookings(){
+    const { data } = await axios.get('api/users/my_bookings')
+    return data
+  }
 }

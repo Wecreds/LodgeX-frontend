@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
 
   const updateMe = async user => {
     const data = await userService.updateMe(user)
-    
+
     return data
   }
 
@@ -27,6 +27,7 @@ export const useUserStore = defineStore('user', () => {
   const registerUser = async(user) => {
     const userInstance = user
     try{
+      localStorage.removeItem('auth_token')
       const documentResponse = await userService.registerDocument(user.document)
       userInstance.document = documentResponse.data.id
       const data = await userService.registerUser(user)
@@ -42,5 +43,10 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  return { registerUser, verifyPassword, updateMe, fetchMe, userData }
+  const fetchMyBookings = async() => {
+    const data = await userService.fetchMyBookings()
+    return data.bookings
+  }
+
+  return { fetchMyBookings, registerUser, verifyPassword, updateMe, fetchMe, userData }
 })
