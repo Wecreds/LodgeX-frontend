@@ -16,37 +16,31 @@
     </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <transition :name="transitionName" mode="out-in">
+        <!-- Step 1 - Request Recovery Token -->
         <div v-if="step === 1" key="step1">
-          <h2
-            class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
-          >
+          <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black">
             Forgot your password
           </h2>
-          <p
-            class="mt-4 text-center text-base font-bold tracking-tight text-gray-500"
-          >
-            Enter the email address you used to register your account, we will
-            send a recovery code to that email address. If the email doesn't
-            exist in our database, you will not receive any email.
+          <p class="mt-4 text-center text-base font-bold tracking-tight text-gray-500">
+            Enter the email address you used to register your account. We will send a recovery Token to that email address. If the email doesn't exist in our database, you will not receive any email.
           </p>
           <form
             class="space-y-6"
             action="#"
             method="POST"
-            @submit.prevent="nextStep"
+            @submit.prevent="sendRecoveryToken()"
           >
             <div class="mt-5">
-              <label
-                for="email"
-                class="block text-sm/6 font-medium text-rich-black"
-                >Email address</label
-              >
+              <label for="email" class="block text-sm/6 font-medium text-rich-black">
+                Email address
+              </label>
               <div class="mt-2">
                 <input
                   id="email"
+                  v-model="email"
                   name="email"
                   type="email"
-                  required=""
+                  required
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
               </div>
@@ -56,49 +50,55 @@
                 type="submit"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
               >
-                Send recovery code
+                Send recovery Token
               </button>
             </div>
           </form>
         </div>
+
+        <!-- Step 2 - Enter Recovery Token -->
         <div v-else-if="step === 2" key="step2">
-          <h2
-            class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
-          >
+          <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black">
             Forgot your password
           </h2>
-          <p
-            class="mt-4 text-center text-lg font-bold tracking-tight text-gray-500"
-          >
-            Now enter the recovery code that was sent to your email
+          <p class="mt-4 text-center text-lg font-bold tracking-tight text-gray-500">
+            Now enter the recovery Token that was sent to your email
           </p>
           <form
             class="space-y-6"
             action="#"
             method="POST"
-            @submit.prevent="nextStep"
+            @submit.prevent="confirmRecoveryToken()"
           >
             <div class="mt-3">
-              <label
-                for="name"
-                class="block text-2xl/9 font-bold text-rich-black text-center"
-                >Code</label
-              >
+              <label for="Token" class="block text-2xl/9 font-bold text-rich-black text-center">
+                Token
+              </label>
               <div class="mt-2 flex space-x-2 justify-center items-center">
                 <input
-                  v-for="(digit, index) in code"
-                  :key="index"
-                  v-model="code[index]"
-                  @input="onInput(index)"
-                  maxlength="1"
+                  v-model="token"
+                  maxlength="39"
                   type="text"
-                  class="w-12 h-12 text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                  class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div class="mt-3">
+              <label for="Token" class="block text-2xl/9 font-bold text-rich-black text-center">
+                New password
+              </label>
+              <div class="mt-2 flex space-x-2 justify-center items-center">
+                <input
+                  minlength=8
+                  v-model="newPassword"
+                  type="text"
+                  class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
             <div class="flex gap-4">
               <button
-                @click="prevStep"
+                @click="prevStep()"
                 type="reset"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
               >
@@ -108,20 +108,18 @@
                 type="submit"
                 class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color"
               >
-                Verify code
+                Verify Token
               </button>
             </div>
           </form>
         </div>
       </transition>
+
       <p class="mt-10 text-center text-sm/6 text-gray-500">
         Remembered your password?
-        {{ ' ' }}
-        <RouterLink
-          to="login"
-          class="font-semibold text-primary-color hover:text-secondary-color"
-          >Sign in</RouterLink
-        >
+        <RouterLink to="/login" class="font-semibold text-primary-color hover:text-secondary-color">
+          Sign in
+        </RouterLink>
       </p>
     </div>
   </div>
@@ -129,16 +127,104 @@
 
 <script setup>
 import { ref } from 'vue'
-
+import { usePasswordResetStore } from '@/stores/passwordReset';
 import { HomeIcon } from '@heroicons/vue/24/solid'
+import Swal from 'sweetalert2';
+import { useRouter } from 'vue-router';
+
+const passwordResetStore = usePasswordResetStore()
+
+const router = useRouter()
+
+const email = ref('')
+const newPassword = ref('')
+const token = ref('')
 
 const step = ref(1)
-const code = ref(['', '', '', '', '', ''])
 const transitionName = ref('slide-right')
 
-const onInput = index => {
-  if (code.value[index] && index < code.value.length - 1) {
-    document.querySelectorAll('input')[index + 1].focus()
+const sendRecoveryToken = async() => {
+  const response = await passwordResetStore.requestPasswordReset(email.value)
+
+  switch (response?.status || response){
+    case 200:
+      nextStep()
+      break;
+    case 404:
+      Swal.fire({
+        title: 'Error!',
+        text: 'Email not found in our database.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
+      break;
+    case 400:
+      Swal.fire({
+        title: 'Error!',
+        text: 'Unknown error, try again later.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
+      break;
+  }
+
+}
+
+const confirmRecoveryToken = async() => {
+  const response = await passwordResetStore.confirmPasswordReset(newPassword.value, token.value, email.value)
+  console.log(response);
+
+  switch (response?.status || response){
+    case 200:
+      Swal.fire({
+        title: 'Success!',
+        text: 'Password reset successfully, you will be redirected to the login page.',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      }).then(() => {
+        router.push('/login')
+      })
+      break;
+    case 400:
+      if(response.data.detail === "Invalid token."){
+        Swal.fire({
+          title: 'Error!',
+          text: 'Invalid token.',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
+      } else {
+        let textContent = '';
+        console.log(response.data.detail);
+
+        if (typeof response.data.detail === 'string' && response.data.detail.includes(',')) {
+          // eslint-disable-next-line no-useless-escape
+          const detailArray = response.data.detail.split(',').map(item => item.replace(/[\[\]\'\"]/g, '').trim());
+          detailArray.forEach(item => {
+            textContent += `${item} `;
+          });
+        } else if(response.data.detail.startsWith("[")){
+              textContent = response.data.detail.slice(2, -2)
+        } else{
+          textContent = response.data.detail
+        }
+        Swal.fire({
+        title: 'Error!',
+        text: textContent,
+        icon: 'warning',
+        confirmButtonText: 'Ok'
+      })
+      }
+      break;
+    case 404:
+      Swal.fire({
+        title: 'Error!',
+        text: 'User not found.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
+      break;
+
   }
 }
 
@@ -153,11 +239,8 @@ const prevStep = () => {
 }
 </script>
 <style scoped>
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+.slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .slide-right-enter-from {
@@ -168,13 +251,6 @@ const prevStep = () => {
 .slide-right-leave-to {
   transform: translateX(-20%);
   opacity: 0;
-}
-
-.slide-left-enter-active,
-.slide-left-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
 }
 
 .slide-left-enter-from {

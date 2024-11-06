@@ -12,13 +12,13 @@ export const useUserStore = defineStore('user', () => {
     userData.value = data
   }
 
-  const updateMe = async user => {
+  const updateMe = async (user) => {
     const data = await userService.updateMe(user)
 
     return data
   }
 
-  const verifyPassword = async password => {
+  const verifyPassword = async (password) => {
     const data = await userService.verifyPassword(password)
 
     return data
