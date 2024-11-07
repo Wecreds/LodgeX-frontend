@@ -18,11 +18,17 @@
       <transition :name="transitionName" mode="out-in">
         <!-- Step 1 - Request Recovery Token -->
         <div v-if="step === 1" key="step1">
-          <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black">
+          <h2
+            class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
+          >
             Forgot your password
           </h2>
-          <p class="mt-4 text-center text-base font-bold tracking-tight text-gray-500">
-            Enter the email address you used to register your account. We will send a recovery Token to that email address. If the email doesn't exist in our database, you will not receive any email.
+          <p
+            class="mt-4 text-center text-base font-bold tracking-tight text-gray-500"
+          >
+            Enter the email address you used to register your account. We will
+            send a recovery Token to that email address. If the email doesn't
+            exist in our database, you will not receive any email.
           </p>
           <form
             class="space-y-6"
@@ -31,7 +37,10 @@
             @submit.prevent="sendRecoveryToken()"
           >
             <div class="mt-5">
-              <label for="email" class="block text-sm/6 font-medium text-rich-black">
+              <label
+                for="email"
+                class="block text-sm/6 font-medium text-rich-black"
+              >
                 Email address
               </label>
               <div class="mt-2">
@@ -58,10 +67,14 @@
 
         <!-- Step 2 - Enter Recovery Token -->
         <div v-else-if="step === 2" key="step2">
-          <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black">
+          <h2
+            class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
+          >
             Forgot your password
           </h2>
-          <p class="mt-4 text-center text-lg font-bold tracking-tight text-gray-500">
+          <p
+            class="mt-4 text-center text-lg font-bold tracking-tight text-gray-500"
+          >
             Now enter the recovery Token that was sent to your email
           </p>
           <form
@@ -71,7 +84,10 @@
             @submit.prevent="confirmRecoveryToken()"
           >
             <div class="mt-3">
-              <label for="Token" class="block text-2xl/9 font-bold text-rich-black text-center">
+              <label
+                for="Token"
+                class="block text-2xl/9 font-bold text-rich-black text-center"
+              >
                 Token
               </label>
               <div class="mt-2 flex space-x-2 justify-center items-center">
@@ -84,12 +100,15 @@
               </div>
             </div>
             <div class="mt-3">
-              <label for="Token" class="block text-2xl/9 font-bold text-rich-black text-center">
+              <label
+                for="Token"
+                class="block text-2xl/9 font-bold text-rich-black text-center"
+              >
                 New password
               </label>
               <div class="mt-2 flex space-x-2 justify-center items-center">
                 <input
-                  minlength=8
+                  minlength="8"
                   v-model="newPassword"
                   type="text"
                   class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-primary-color"
@@ -117,7 +136,10 @@
 
       <p class="mt-10 text-center text-sm/6 text-gray-500">
         Remembered your password?
-        <RouterLink to="/login" class="font-semibold text-primary-color hover:text-secondary-color">
+        <RouterLink
+          to="/login"
+          class="font-semibold text-primary-color hover:text-secondary-color"
+        >
           Sign in
         </RouterLink>
       </p>
@@ -127,11 +149,11 @@
 
 <script setup>
 import { ref } from 'vue'
-import { usePasswordResetStore } from '@/stores/passwordReset';
+import { usePasswordResetStore } from '@/stores/passwordReset'
 import { useLodgeStore } from '@/stores/lodge'
 import { HomeIcon } from '@heroicons/vue/24/solid'
-import Swal from 'sweetalert2';
-import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2'
+import { useRouter } from 'vue-router'
 
 const passwordResetStore = usePasswordResetStore()
 const lodgeStore = useLodgeStore()
@@ -145,85 +167,92 @@ const token = ref('')
 const step = ref(1)
 const transitionName = ref('slide-right')
 
-const sendRecoveryToken = async() => {
+const sendRecoveryToken = async () => {
   const response = await passwordResetStore.requestPasswordReset(email.value)
 
-  switch (response?.status || response){
+  switch (response?.status || response) {
     case 200:
       nextStep()
-      break;
+      break
     case 404:
       Swal.fire({
         title: 'Error!',
         text: 'Email not found in our database.',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       })
-      break;
+      break
     case 400:
       Swal.fire({
         title: 'Error!',
         text: 'Unknown error, try again later.',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       })
-      break;
+      break
   }
-
 }
 
-const confirmRecoveryToken = async() => {
-  const response = await passwordResetStore.confirmPasswordReset(newPassword.value, token.value, email.value)
+const confirmRecoveryToken = async () => {
+  const response = await passwordResetStore.confirmPasswordReset(
+    newPassword.value,
+    token.value,
+    email.value,
+  )
 
-  switch (response?.status || response){
+  switch (response?.status || response) {
     case 200:
       Swal.fire({
         title: 'Success!',
         text: 'Password reset successfully, you will be redirected to the login page.',
         icon: 'success',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       }).then(() => {
         router.push('/login')
       })
-      break;
+      break
     case 400:
-      if(response.data.detail === "Invalid token."){
+      if (response.data.detail === 'Invalid token.') {
         Swal.fire({
           title: 'Error!',
           text: 'Invalid token.',
           icon: 'error',
-          confirmButtonText: 'Ok'
+          confirmButtonText: 'Ok',
         })
       } else {
-        let textContent = '';
-        if (typeof response.data.detail === 'string' && response.data.detail.includes(',')) {
+        let textContent = ''
+        if (
+          typeof response.data.detail === 'string' &&
+          response.data.detail.includes(',')
+        ) {
           // eslint-disable-next-line no-useless-escape
-          const detailArray = response.data.detail.split(',').map(item => item.replace(/[\[\]\'\"]/g, '').trim());
+          const detailArray = response.data.detail
+            .split(',')
+            .map(item => item.replace(/[\[\]\'\"]/g, '').trim())
           detailArray.forEach(item => {
-            textContent += `${item} `;
-          });
-        } else if(response.data.detail.startsWith("[")){
-              textContent = response.data.detail.slice(2, -2)
-        } else{
+            textContent += `${item} `
+          })
+        } else if (response.data.detail.startsWith('[')) {
+          textContent = response.data.detail.slice(2, -2)
+        } else {
           textContent = response.data.detail
         }
         Swal.fire({
-        title: 'Error!',
-        text: textContent,
-        icon: 'warning',
-        confirmButtonText: 'Ok'
-      })
+          title: 'Error!',
+          text: textContent,
+          icon: 'warning',
+          confirmButtonText: 'Ok',
+        })
       }
-      break;
+      break
     case 404:
       Swal.fire({
         title: 'Error!',
         text: 'User not found.',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       })
-      break;
-
+      break
   }
 }
 
@@ -238,8 +267,13 @@ const prevStep = () => {
 }
 </script>
 <style scoped>
-.slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 .slide-right-enter-from {

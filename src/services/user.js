@@ -5,7 +5,9 @@ export default class UserService {
     return data
   }
   async verifyPassword(password) {
-    const { data }= await axios.get(`api/users/verify_password/?password=${password}`)
+    const { data } = await axios.get(
+      `api/users/verify_password/?password=${password}`,
+    )
     return data
   }
   async updateMe(user) {
@@ -14,22 +16,29 @@ export default class UserService {
     return { data, status }
   }
   async registerDocument(document) {
-    const { data, status } = await axios.post('api/media/documents/', {file: document},  {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }})
+    const { data, status } = await axios.post(
+      'api/media/documents/',
+      { file: document },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    )
     return { data, status }
   }
   async registerUser(user) {
     const { data, status } = await axios.post('api/users/', user)
     return { data, status }
   }
-  async fetchMyBookings(){
+  async fetchMyBookings() {
     const { data } = await axios.get('api/users/my_bookings')
     return data
   }
   async changePassword(password) {
-    const { data, status } = await axios.patch('api/users/change_password/', {password})
-    return { data, status}
+    const { data, status } = await axios.patch('api/users/change_password/', {
+      password,
+    })
+    return { data, status }
   }
 }

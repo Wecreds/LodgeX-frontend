@@ -4,21 +4,24 @@ import PasswordResetService from '@/services/passwordReset'
 const passwordResetService = new PasswordResetService()
 
 export const usePasswordResetStore = defineStore('passwordReset', () => {
-  const requestPasswordReset = async(email) => {
-      const response = await passwordResetService.sendResetPasswordCode(email)
+  const requestPasswordReset = async email => {
+    const response = await passwordResetService.sendResetPasswordCode(email)
 
-      return response
+    return response
   }
 
-  const confirmPasswordReset = async(newPassword, token, email) => {
-      const response = await passwordResetService.resetPassword(newPassword, token, email)
+  const confirmPasswordReset = async (newPassword, token, email) => {
+    const response = await passwordResetService.resetPassword(
+      newPassword,
+      token,
+      email,
+    )
 
-      return response
+    return response
   }
 
   return {
-
     requestPasswordReset,
-    confirmPasswordReset
+    confirmPasswordReset,
   }
 })

@@ -5,7 +5,7 @@ export default class LodgeService {
     return data
   }
   async fetchImages() {
-    const { data }= await axios.get('/api/lodge-photos/with_logo')
+    const { data } = await axios.get('/api/lodge-photos/with_logo')
     return { data }
   }
 }

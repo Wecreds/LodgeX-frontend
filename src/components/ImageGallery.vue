@@ -31,8 +31,13 @@
       </div>
     </div>
 
-    <div v-if="isGalleryOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10 p-4">
-      <div class="relative bg-white rounded-lg max-w-screen-md w-full max-h-[80vh] overflow-y-auto">
+    <div
+      v-if="isGalleryOpen"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10 p-4"
+    >
+      <div
+        class="relative bg-white rounded-lg max-w-screen-md w-full max-h-[80vh] overflow-y-auto"
+      >
         <!-- Modal Header -->
         <div class="flex justify-between items-center p-4 border-b">
           <h3 class="text-xl font-semibold">Gallery</h3>
@@ -78,18 +83,18 @@ const toggleGallery = () => {
   isGalleryOpen.value = !isGalleryOpen.value
 }
 
-const selectImage = (image) => {
+const selectImage = image => {
   selectedImage.value = image
 }
 
 watch(
   () => lodgeStore.photos,
-  (newPhotos) => {
+  newPhotos => {
     if (newPhotos && newPhotos.length > 0) {
       selectedImage.value = newPhotos[0]
       images.value = newPhotos
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>

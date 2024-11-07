@@ -131,11 +131,11 @@
                   <MenuItem class="hover:underline">
                     <button
                       class="text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm"
-                      >
+                    >
                       Account settings
                     </button>
-                </MenuItem>
-              </RouterLink>
+                  </MenuItem>
+                </RouterLink>
               </div>
               <div class="px-1 py-1">
                 <MenuItem class="hover:underline" @click="logOut()">
@@ -163,11 +163,7 @@
         <div class="flex items-center justify-between">
           <RouterLink to="/" class="-m-1.5 p-1.5">
             <span class="sr-only">LodgeX</span>
-            <img
-              class="h-8 w-auto"
-              :src="lodgeStore.logo?.photo.url"
-              alt=""
-            />
+            <img class="h-8 w-auto" :src="lodgeStore.logo?.photo.url" alt="" />
           </RouterLink>
           <button
             type="button"
@@ -344,7 +340,7 @@ const closeLoginComponent = () => {
   loginComponentOpen.value = false
 }
 
-onMounted(async() => {
+onMounted(async () => {
   await lodgeStore.fetchImages()
 })
 </script>

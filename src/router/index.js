@@ -18,12 +18,21 @@ const router = createRouter({
           component: () => import('../views/HomeView.vue'),
           meta: {
             requiresAuth: false,
-          }
+          },
         },
         {
           path: '/account',
           name: 'account',
           component: () => import('../views/AccountView.vue'),
+        },
+        {
+          path: '/room/:id',
+          name: 'room-detail',
+          meta: {
+            requiresAuth: false,
+          },
+          component: () => import('../views/RoomView.vue'),
+          props: true,
         },
       ],
     },

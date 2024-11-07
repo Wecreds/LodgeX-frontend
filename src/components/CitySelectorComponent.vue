@@ -18,7 +18,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 const route = useRoute()

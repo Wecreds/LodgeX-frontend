@@ -4,15 +4,9 @@
       <HomeIcon class="w-6 h-6 text-rich-black" />
     </RouterLink>
   </div>
-  <div
-    class="flex min-h-full flex-1 flex-col justify-center px-6 py-6 lg:px-8"
-  >
+  <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img
-        class="mx-auto w-1/3"
-        :src="lodgeStore.logo?.photo.url"
-        alt="Logo"
-      />
+      <img class="mx-auto w-1/3" :src="lodgeStore.logo?.photo.url" alt="Logo" />
       <h2
         class="mt-2 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
       >
@@ -59,7 +53,7 @@
                   name="password"
                   type="password"
                   v-model="newUser.password"
-                  minlength=8
+                  minlength="8"
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
@@ -79,11 +73,16 @@
                   name="password2"
                   type="password"
                   v-model="confirmPassword"
-                  minlength=8
+                  minlength="8"
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
-                <p v-if="diffPassword" class="text-center text-red-700 font-bold">Password's doesnt match.</p>
+                <p
+                  v-if="diffPassword"
+                  class="text-center text-red-700 font-bold"
+                >
+                  Password's doesnt match.
+                </p>
               </div>
             </div>
             <div>
@@ -224,7 +223,9 @@
                   class="block text-sm/6 font-medium text-rich-black"
                   >Nationality</label
                 >
-                <NationalitySelectorComponent v-model="newUser.personal_info.nationality"/>
+                <NationalitySelectorComponent
+                  v-model="newUser.personal_info.nationality"
+                />
               </div>
             </div>
             <div class="flex justify-between">
@@ -350,7 +351,9 @@ const router = useRouter()
 
 const selectedCountry = ref(null)
 const selectedState = ref(null)
-const diffPassword = computed(() => confirmPassword.value !== newUser.value.password)
+const diffPassword = computed(
+  () => confirmPassword.value !== newUser.value.password,
+)
 
 const confirmPassword = ref('')
 
@@ -376,43 +379,43 @@ const newUser = ref({
   telephone: undefined,
 })
 
-function handleFileUpload($event){
+function handleFileUpload($event) {
   const file = $event.target.files[0]
   if (file) {
-    newUser.value.document = file;
+    newUser.value.document = file
   }
 }
 
-const registerUser = async() => {
-    const response = await userStore.registerUser(newUser.value)
-    if(response.status === 201){
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'User registered successfully, you will be redirected to the login page.',
-        confirmButtonText: 'Ok',
-      }).then(() => {
-        router.push({ name: 'login' })
-      })
-    } else if(response === "email"){
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'A account with that email address already exists.',
-      })
-    } else if(response === "telephone"){
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'A account with that telephone number already exists.',
-      })
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'A unknown error occurred, please try again later.',
-      })
-    }
+const registerUser = async () => {
+  const response = await userStore.registerUser(newUser.value)
+  if (response.status === 201) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: 'User registered successfully, you will be redirected to the login page.',
+      confirmButtonText: 'Ok',
+    }).then(() => {
+      router.push({ name: 'login' })
+    })
+  } else if (response === 'email') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'A account with that email address already exists.',
+    })
+  } else if (response === 'telephone') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'A account with that telephone number already exists.',
+    })
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'A unknown error occurred, please try again later.',
+    })
+  }
 }
 
 const nextStep = () => {

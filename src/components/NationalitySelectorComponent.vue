@@ -17,15 +17,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { useUserStore } from '@/stores/user';
-
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
 
 const path = route.path
 
 const userStore = useUserStore()
-const selectedNationality = ref(userStore.userData?.personal_info.nationality, null)
+const selectedNationality = ref(
+  userStore.userData?.personal_info.nationality,
+  null,
+)
 const nationalities = ref([])
 
 onMounted(() => {
