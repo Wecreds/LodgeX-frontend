@@ -10,7 +10,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto w-1/3"
-        :src="lodgeStore.logo.photo.url"
+        :src="lodgeStore.logo?.photo.url"
         alt="Logo"
       />
       <h2

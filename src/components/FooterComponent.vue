@@ -5,7 +5,7 @@
         <div class="mb-6 md:mb-0">
           <RouterLink to="/" class="flex items-center">
             <img
-              :src="lodgeStore.logo.photo.url"
+              :src="lodgeStore.logo?.photo.url"
               class="w-1/4 me-3"
               alt="Logo"
             />

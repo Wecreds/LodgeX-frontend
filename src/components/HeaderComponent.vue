@@ -13,7 +13,7 @@
           <span class="sr-only">Lodge Name</span>
           <img
             class="h-16 w-auto"
-            :src="lodgeStore.logo.photo.url"
+            :src="lodgeStore.logo?.photo.url"
             alt="Logo"
           />
         </RouterLink>
@@ -165,7 +165,7 @@
             <span class="sr-only">LodgeX</span>
             <img
               class="h-8 w-auto"
-              :src="lodgeStore.logo.photo.url"
+              :src="lodgeStore.logo?.photo.url"
               alt=""
             />
           </RouterLink>

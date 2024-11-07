@@ -10,7 +10,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto h-10 w-auto"
-        :src="lodgeStore.logo.photo.url"
+        :src="lodgeStore.logo?.photo.url"
         alt="Logo"
       />
     </div>
@@ -174,7 +174,6 @@ const sendRecoveryToken = async() => {
 
 const confirmRecoveryToken = async() => {
   const response = await passwordResetStore.confirmPasswordReset(newPassword.value, token.value, email.value)
-  console.log(response);
 
   switch (response?.status || response){
     case 200:
@@ -197,8 +196,6 @@ const confirmRecoveryToken = async() => {
         })
       } else {
         let textContent = '';
-        console.log(response.data.detail);
-
         if (typeof response.data.detail === 'string' && response.data.detail.includes(',')) {
           // eslint-disable-next-line no-useless-escape
           const detailArray = response.data.detail.split(',').map(item => item.replace(/[\[\]\'\"]/g, '').trim());

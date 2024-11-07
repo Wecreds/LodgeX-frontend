@@ -26,7 +26,7 @@
         <div class="w-1/2 mx-auto">
           <img
             class="mx-auto object-contain"
-            :src="lodgeStore.logo.photo.url"
+            :src="lodgeStore.logo?.photo.url"
             alt="Logo"
           />
         </div>

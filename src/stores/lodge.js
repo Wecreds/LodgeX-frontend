@@ -18,7 +18,6 @@ export const useLodgeStore = defineStore('lodge', () => {
     const data = await lodgeService.fetchImages();
     photos.value = data.data.photos;
     logo.value = data.data.logo;
-    console.log(photos.value, logo.value);
 
   };
 
