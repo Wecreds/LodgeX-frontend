@@ -5,15 +5,15 @@
   ></div>
   <header class="bg-rich-white shadow-2xl w-full">
     <nav
-      class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+      class="mx-auto flex max-w-7xl items-center justify-between p-1 lg:px-8"
       aria-label="Global"
     >
       <div class="flex lg:flex-1">
         <RouterLink to="/" class="-m-1.5 p-1.5">
           <span class="sr-only">Lodge Name</span>
           <img
-            class="h-8 w-auto"
-            src="https://placehold.co/600x400?text=Logo"
+            class="h-16 w-auto"
+            :src="lodgeStore.logo.photo.url"
             alt="Logo"
           />
         </RouterLink>
@@ -165,7 +165,7 @@
             <span class="sr-only">LodgeX</span>
             <img
               class="h-8 w-auto"
-              src="https://placehold.co/600x400?text=Logo"
+              :src="lodgeStore.logo.photo.url"
               alt=""
             />
           </RouterLink>
@@ -276,7 +276,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -305,8 +305,10 @@ import { RouterLink, useRouter } from 'vue-router'
 import LoginComponent from './LoginComponent.vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { useLodgeStore } from '@/stores/lodge'
 
 const authStore = useAuthStore()
+const lodgeStore = useLodgeStore()
 
 const router = useRouter()
 
@@ -341,4 +343,8 @@ const loginComponentOpen = ref(false)
 const closeLoginComponent = () => {
   loginComponentOpen.value = false
 }
+
+onMounted(async() => {
+  await lodgeStore.fetchImages()
+})
 </script>

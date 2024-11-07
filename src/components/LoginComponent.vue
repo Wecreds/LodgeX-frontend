@@ -1,9 +1,9 @@
 <template>
   <div
-    class="shadow-2xl w-fit h-fit bg-rich-white absolute z-50 rounded-sm lg:px-15 lg:py-9 md:px-14 md:py-5 sm:py-0 sm:px-12 shrink"
+    class="shadow-2xl w-1/3 h-full bg-rich-white absolute z-50 rounded-sm lg:px-15 lg:py-9 md:px-14 md:py-5 sm:py-0 sm:px-12 shrink-0 pt-0"
   >
     <div
-      class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
+      class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 pt-0 lg:px-8 shrink-0"
     >
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <div
@@ -23,11 +23,13 @@
             />
           </RouterLink>
         </div>
-        <img
-          class="mx-auto h-12 w-auto"
-          src="https://placehold.co/600x400?text=Logo"
-          alt="Logo"
-        />
+        <div class="w-1/2 mx-auto">
+          <img
+            class="mx-auto object-contain"
+            :src="lodgeStore.logo.photo.url"
+            alt="Logo"
+          />
+        </div>
         <h2
           class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black md:text-xl/9 sm:text-lg/9"
         >
@@ -116,8 +118,10 @@ import { ArrowRightIcon } from '@heroicons/vue/24/solid'
 import Swal from 'sweetalert2'
 
 import { useAuthStore } from '@/stores/auth'
+import { useLodgeStore } from '@/stores/lodge'
 
 const authStore = useAuthStore()
+const lodgeStore = useLodgeStore()
 
 const route = useRoute()
 const router = useRouter()

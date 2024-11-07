@@ -5,21 +5,21 @@
     </RouterLink>
   </div>
   <div
-    class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
+    class="flex min-h-full flex-1 flex-col justify-center px-6 py-6 lg:px-8"
   >
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
-        class="mx-auto h-10 w-auto"
-        src="https://placehold.co/600x400?text=Logo"
+        class="mx-auto w-1/3"
+        :src="lodgeStore.logo.photo.url"
         alt="Logo"
       />
       <h2
-        class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
+        class="mt-2 text-center text-2xl/9 font-bold tracking-tight text-rich-black"
       >
         Sign up
       </h2>
     </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
       <transition :name="transitionName" mode="out-in">
         <div v-if="step === 1" key="step1">
           <form
@@ -328,6 +328,8 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useLodgeStore } from '@/stores/lodge'
+
 import Swal from 'sweetalert2'
 import {
   ArrowLeftIcon,
@@ -353,6 +355,7 @@ const diffPassword = computed(() => confirmPassword.value !== newUser.value.pass
 const confirmPassword = ref('')
 
 const userStore = useUserStore()
+const lodgeStore = useLodgeStore()
 
 const transitionName = ref('slide-right')
 

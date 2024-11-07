@@ -10,7 +10,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto h-10 w-auto"
-        src="https://placehold.co/600x400?text=Logo"
+        :src="lodgeStore.logo.photo.url"
         alt="Logo"
       />
     </div>
@@ -128,11 +128,13 @@
 <script setup>
 import { ref } from 'vue'
 import { usePasswordResetStore } from '@/stores/passwordReset';
+import { useLodgeStore } from '@/stores/lodge'
 import { HomeIcon } from '@heroicons/vue/24/solid'
 import Swal from 'sweetalert2';
 import { useRouter } from 'vue-router';
 
 const passwordResetStore = usePasswordResetStore()
+const lodgeStore = useLodgeStore()
 
 const router = useRouter()
 

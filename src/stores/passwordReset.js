@@ -12,7 +12,6 @@ export const usePasswordResetStore = defineStore('passwordReset', () => {
 
   const confirmPasswordReset = async(newPassword, token, email) => {
       const response = await passwordResetService.resetPassword(newPassword, token, email)
-      console.log(response);
 
       return response
   }
