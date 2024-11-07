@@ -59,6 +59,7 @@
                   name="password"
                   type="password"
                   v-model="newUser.password"
+                  minlength=8
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />
@@ -78,6 +79,7 @@
                   name="password2"
                   type="password"
                   v-model="confirmPassword"
+                  minlength=8
                   required=""
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-rich-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-color sm:text-sm/6 outline-none"
                 />

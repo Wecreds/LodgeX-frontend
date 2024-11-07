@@ -24,7 +24,7 @@
           </RouterLink>
         </div>
         <img
-          class="mx-auto h-10 w-auto"
+          class="mx-auto h-12 w-auto"
           src="https://placehold.co/600x400?text=Logo"
           alt="Logo"
         />

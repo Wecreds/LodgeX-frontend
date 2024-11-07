@@ -10,7 +10,7 @@
     >
       <div class="flex lg:flex-1">
         <RouterLink to="/" class="-m-1.5 p-1.5">
-          <span class="sr-only">Bella Vista</span>
+          <span class="sr-only">Lodge Name</span>
           <img
             class="h-8 w-auto"
             src="https://placehold.co/600x400?text=Logo"
@@ -162,7 +162,7 @@
       >
         <div class="flex items-center justify-between">
           <RouterLink to="/" class="-m-1.5 p-1.5">
-            <span class="sr-only">Bella Vista</span>
+            <span class="sr-only">LodgeX</span>
             <img
               class="h-8 w-auto"
               src="https://placehold.co/600x400?text=Logo"
