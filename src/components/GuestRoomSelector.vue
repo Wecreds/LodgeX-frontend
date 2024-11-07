@@ -8,7 +8,7 @@
       readonly
       :value="formattedGuestRoom"
       @click="showGuestOptions = !showGuestOptions"
-      class="cursor-pointer border border-gray-300 rounded px-2 py-1.5 w-full text-gray-800"
+      class="cursor-pointer border border-gray-300 rounded px-2 py-1.5 w-full text-gray-800 focus:ring-1 focus:ring-inset focus:ring-primary-color focus:outline-none"
     />
     <div
       v-if="showGuestOptions"
