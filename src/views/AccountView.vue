@@ -14,7 +14,7 @@
       </div>
     </div>
     <transition name="fade" mode="out-in">
-      <div v-if="step === 1" key="step1" class="w-full flex flex-col gap-4 bg-gray-200 p-4">
+      <div v-if="step === 1" key="step1" class="w-full flex flex-col gap-4 bg-gray-100 p-4 shadow rounded-lg">
         <div>
           <h1 class="text-2xl/9">Account credentials</h1>
         </div>
@@ -55,7 +55,7 @@
           </form>
         </div>
       </div>
-      <div v-else-if="step === 2" key="step2" class="w-full flex flex-col gap-4 bg-gray-200 p-4">
+      <div v-else-if="step === 2" key="step2" class="w-full flex flex-col gap-4 bg-gray-100 p-4 shadow rounded-lg">
         <div>
           <h1 class="text-2xl/9">Personal information</h1>
         </div>
@@ -121,9 +121,9 @@
           </form>
         </div>
       </div>
-      <div v-else-if="step === 3" key="step3" class="w-full flex flex-col gap-4 bg-gray-200 p-4">
+      <div v-else-if="step === 3" key="step3" class="w-full flex flex-col gap-4 bg-gray-100 p-4 shadow rounded-lg">
         <div>
-          <h1 class="text-2xl font-semibold mb-4">My Bookings</h1>
+          <h1 class="text-2xl font-base">My Bookings</h1>
         </div>
         <div class="text-2xl font-bold" v-if="bookings.length === 0">No bookings were made.</div>
         <div v-for="(booking, index) in bookings" :key="index" class="bg-white p-4 rounded-lg shadow-lg" v-else>
@@ -132,7 +132,7 @@
             <span :class="{
               'bg-green-200 text-green-800': booking.booking_status === 'ACTIVE',
               'bg-red-200 text-red-800': booking.booking_status === 'CANCELED',
-              'bg-gray-200 text-gray-800': booking.booking_status === 'COMPLETED'
+              'bg-gray-100 text-gray-800': booking.booking_status === 'COMPLETED'
             }" class="px-2 py-1 rounded-full text-sm font-medium">
               {{ booking.booking_status }}
             </span>
@@ -177,7 +177,7 @@
         </div>
       </div>
 
-      <div v-else-if="step === 4" key="step4" class="w-full flex flex-col gap-4 bg-gray-200 p-4">
+      <div v-else-if="step === 4" key="step4" class="w-full flex flex-col gap-4 bg-gray-100 p-4 shadow rounded-lg">
         <div>
           <h1 class="text-2xl/9">Change password</h1>
         </div>

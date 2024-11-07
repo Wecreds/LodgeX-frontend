@@ -11,7 +11,7 @@ export const useLodgeStore = defineStore('lodge', () => {
 
   const fetchLodge = async () => {
     const data = await lodgeService.fetchLodge();
-    lodgeInfo.value = data;
+    lodgeInfo.value = data.data;
   };
 
   const fetchImages = async () => {

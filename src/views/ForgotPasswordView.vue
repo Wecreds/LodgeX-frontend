@@ -79,7 +79,7 @@
                   v-model="token"
                   maxlength="39"
                   type="text"
-                  class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                  class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-primary-color"
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@
                   minlength=8
                   v-model="newPassword"
                   type="text"
-                  class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                  class="w-full text-center text-xl border-2 border-gray-300 rounded focus:outline-none focus:border-primary-color"
                 />
               </div>
             </div>
