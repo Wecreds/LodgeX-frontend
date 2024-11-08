@@ -85,11 +85,12 @@
         <RouterLink to="/" class="text-sm/6 font-semibold text-rich-black"
           >Lorem Ipsum</RouterLink
         >
-        <RouterLink to="/" class="text-sm/6 font-semibold text-rich-black"
-          >Lorem Ipsum</RouterLink
+        <RouterLink to="/feedbacks" class="text-sm/6 font-semibold text-rich-black"
+          >Feedbacks</RouterLink
         >
-        <RouterLink to="/" class="text-sm/6 font-semibold text-rich-black"
-          >Lorem Ipsum</RouterLink
+        <RouterLink :to="{name: 'account', params: {
+                  step: 3
+                }}" class="text-sm/6 font-semibold text-rich-black">My Bookings</RouterLink
         >
       </PopoverGroup>
       <div
@@ -127,7 +128,9 @@
               class="absolute right-0 mt-2 w-56 origin-top-right divide-y focus:outline-none bg-rich-white rounded-sm shadow-2xl"
             >
               <div class="px-1 py-1">
-                <RouterLink to="/account">
+                <RouterLink :to="{name: 'account', params: {
+                  step: 1
+                }}">
                   <MenuItem class="hover:underline">
                     <button
                       class="text-rich-black flex w-full items-center rounded-md px-2 py-2 text-sm"

@@ -29,13 +29,17 @@ export default class RoomService {
   }
 
   async bookRoom(roomId, startDate, endDate, guest_count) {
-    const data = await axios.post('/api/booking_create/', {
-      room_id: roomId,
-      start_date: startDate,
-      end_date: endDate,
-      guest_count: guest_count,
-    })
+    try{
+      const data = await axios.post('/api/booking_create/', {
+        room_id: roomId,
+        start_date: startDate,
+        end_date: endDate,
+        guest_count: guest_count,
+      })
+      return data
+    }catch (error){
+      return error
+    }
 
-    return data.data
   }
 }

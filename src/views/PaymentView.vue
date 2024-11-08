@@ -15,10 +15,10 @@
           <span
             :class="{
               'text-green-600': paymentData.payment_status_display === 'PAID',
-              'text-red-600': paymentData.payment_status_display === 'PENDING'
+              'text-red-600': paymentData.payment_status_display === 'PENDING',
             }"
           >
-             {{ paymentData.payment_status_display }}
+            {{ paymentData.payment_status_display }}
           </span>
         </p>
         <p class="text-lg text-gray-700">
@@ -51,15 +51,15 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { usePaymentStore } from '@/stores/payment';
-import { useRoute } from 'vue-router';
+import { usePaymentStore } from '@/stores/payment'
+import { useRoute } from 'vue-router'
 
-const paymentStore = usePaymentStore();
-const route = useRoute();
+const paymentStore = usePaymentStore()
+const route = useRoute()
 
-const paymentData = ref();
+const paymentData = ref()
 
 onMounted(async () => {
-  paymentData.value = await paymentStore.fetchPayment(route.params.bookingId);
-});
+  paymentData.value = await paymentStore.fetchPayment(route.params.bookingId)
+})
 </script>

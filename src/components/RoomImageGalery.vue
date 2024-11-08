@@ -94,8 +94,6 @@ watch(
   () => props.roomPhotos,
   newPhotos => {
     if (newPhotos && newPhotos.length > 0) {
-      console.log(newPhotos)
-
       selectedImage.value = newPhotos[0]
       images.value = newPhotos
     }

@@ -21,9 +21,10 @@ const router = createRouter({
           },
         },
         {
-          path: '/account',
+          path: '/account/:step',
           name: 'account',
           component: () => import('../views/AccountView.vue'),
+          props: true,
         },
         {
           path: '/room/:id',
@@ -39,6 +40,20 @@ const router = createRouter({
           name: 'payment',
           component: () => import('../views/PaymentView.vue'),
           props: true,
+        },
+        {
+          path: '/create-feedback/:bookingId',
+          name: 'create-feedback',
+          component: () => import('../views/CreateFeedbackView.vue'),
+          props: true,
+        },
+        {
+          path: '/feedbacks',
+          name: 'feedbacks',
+          component: () => import('../views/FeedbacksView.vue'),
+          meta: {
+            requiresAuth: false,
+          }
         },
       ],
     },

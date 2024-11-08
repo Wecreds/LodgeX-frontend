@@ -112,7 +112,7 @@
 </template>
 <script setup>
 import { useRoute, useRouter, RouterLink } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import { ArrowRightIcon } from '@heroicons/vue/24/solid'
 import Swal from 'sweetalert2'
@@ -159,4 +159,8 @@ const logIn = async () => {
     }
   }
 }
+
+onMounted(() => {
+  lodgeStore.fetchImages()
+})
 </script>

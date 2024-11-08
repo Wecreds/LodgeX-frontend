@@ -301,7 +301,8 @@
         >
           <div class="flex items-center justify-between mb-2">
             <h2 class="text-xl text-gray-800">
-              <span class="font-semibold">Booking Date:</span> {{ booking.booking_date }}
+              <span class="font-semibold">Booking Date:</span>
+              {{ booking.booking_date }}
             </h2>
             <span
               :class="{
@@ -366,16 +367,46 @@
                 <span class="font-semibold">Reason:</span>
                 {{ availability.reason }}
               </div>
-
             </div>
           </div>
-          <div v-if="booking.payment_status == 'No payment' || booking.payment_status == 'PENDING'" class="flex justify-between items-center">
-            <span class="text-2xl text-rich-white bg-red-500 p-2 rounded">Not payed</span>
-            <RouterLink :to="{ name: 'payment', params: { bookingId: booking.id}}"><span class="text-2xl text-rich-black underline">Pay now</span></RouterLink>
+          <div
+            v-if="
+              booking.payment_status == 'No payment' ||
+              booking.payment_status == 'PENDING'
+            "
+            class="flex justify-between items-center"
+          >
+            <span class="text-2xl text-rich-white bg-red-500 p-2 rounded"
+              >Not payed</span
+            >
+            <RouterLink
+              :to="{ name: 'payment', params: { bookingId: booking.id } }"
+              ><span class="text-2xl text-rich-black underline"
+                >Pay now</span
+              ></RouterLink
+            >
           </div>
           <div v-else class="flex justify-between items-center">
-            <span class="text-2xl text-rich-white bg-green-500 p-2 rounded">Payed</span>
-            <RouterLink :to="{ name: 'payment', params: { bookingId: booking.id}}"><span class="text-2xl text-rich-black underline">See payment details</span></RouterLink>
+            <span class="text-2xl text-rich-white bg-green-500 p-2 rounded"
+              >Payed</span
+            >
+            <RouterLink
+              :to="{ name: 'payment', params: { bookingId: booking.id } }"
+              ><span class="text-2xl text-rich-black underline"
+                >See payment details</span
+              ></RouterLink
+            >
+          </div>
+          <div
+            v-if="!booking.feedback && booking.booking_status === 'COMPLETED'"
+            class="flex justify-between items-center mt-2"
+          >
+            <RouterLink
+              :to="{ name: 'create-feedback', params: { bookingId: booking.id } }"
+              ><span class="text-2xl text-rich-black underline"
+              >Submit feedback</span
+            ></RouterLink
+            >
           </div>
         </div>
       </div>
@@ -475,7 +506,7 @@
 <script setup>
 import { useUserStore } from '@/stores/user'
 import { onMounted, ref } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { useRouter, RouterLink, useRoute } from 'vue-router'
 import Swal from 'sweetalert2'
 
 import CountrySelectorComponent from '@/components/CountrySelectorComponent.vue'
@@ -485,6 +516,7 @@ import NationalitySelectorComponent from '@/components/NationalitySelectorCompon
 
 const userStore = useUserStore()
 const router = useRouter()
+const route = useRoute()
 
 const step = ref(1)
 
@@ -665,6 +697,7 @@ onMounted(async () => {
     postalCode: userStore.userData.personal_info.postalCode,
   }
   bookings.value = await userStore.fetchMyBookings()
+  step.value = parseInt(route.params.step, 10)
 })
 </script>
 <style scoped>
