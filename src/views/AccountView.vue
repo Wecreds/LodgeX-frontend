@@ -300,8 +300,8 @@
           v-else
         >
           <div class="flex items-center justify-between mb-2">
-            <h2 class="text-xl font-semibold text-gray-800">
-              Booking Date: {{ booking.booking_date }}
+            <h2 class="text-xl text-gray-800">
+              <span class="font-semibold">Booking Date:</span> {{ booking.booking_date }}
             </h2>
             <span
               :class="{
@@ -344,7 +344,7 @@
               </div>
               <div class="text-gray-600">
                 <span class="font-semibold">Category:</span>
-                {{ availability.room.category }}
+                {{ availability.room.category.name }}
               </div>
             </div>
 
@@ -366,7 +366,16 @@
                 <span class="font-semibold">Reason:</span>
                 {{ availability.reason }}
               </div>
+
             </div>
+          </div>
+          <div v-if="booking.payment_status == 'No payment' || booking.payment_status == 'PENDING'" class="flex justify-between items-center">
+            <span class="text-2xl text-rich-white bg-red-500 p-2 rounded">Not payed</span>
+            <RouterLink :to="{ name: 'payment', params: { bookingId: booking.id}}"><span class="text-2xl text-rich-black underline">Pay now</span></RouterLink>
+          </div>
+          <div v-else class="flex justify-between items-center">
+            <span class="text-2xl text-rich-white bg-green-500 p-2 rounded">Payed</span>
+            <RouterLink :to="{ name: 'payment', params: { bookingId: booking.id}}"><span class="text-2xl text-rich-black underline">See payment details</span></RouterLink>
           </div>
         </div>
       </div>
@@ -466,7 +475,7 @@
 <script setup>
 import { useUserStore } from '@/stores/user'
 import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, RouterLink } from 'vue-router'
 import Swal from 'sweetalert2'
 
 import CountrySelectorComponent from '@/components/CountrySelectorComponent.vue'

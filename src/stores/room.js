@@ -33,8 +33,8 @@ export const useRoomStore = defineStore('room', () => {
     return data.data
   }
 
-  const bookRoom = async (roomId, startDate, endDate) => {
-    const data = await roomService.bookRoom(roomId, startDate, endDate)
+  const bookRoom = async (roomId, startDate, endDate, guestCount) => {
+    const data = await roomService.bookRoom(roomId, startDate, endDate, guestCount)
     return data
   }
 

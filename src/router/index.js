@@ -34,6 +34,12 @@ const router = createRouter({
           component: () => import('../views/RoomView.vue'),
           props: true,
         },
+        {
+          path: '/payment/:bookingId',
+          name: 'payment',
+          component: () => import('../views/PaymentView.vue'),
+          props: true,
+        },
       ],
     },
     {

@@ -47,8 +47,9 @@
       <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
         <span class="text-sm text-gray-500 sm:text-center">
-          Educational Project <span class="font-bold italic">LodgeX</span>, Made
-          by <span class="font-bold">Enzo Lazzarin Dal'osto</span>.
+          Powered by educational project
+          <span class="font-bold italic">LodgeX</span>, Made by
+          <span class="font-bold">Enzo Lazzarin Dal'osto</span>.
         </span>
         <div class="flex sm:justify-center sm:mt-0">
           <a

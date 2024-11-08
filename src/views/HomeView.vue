@@ -70,16 +70,19 @@
       </div>
 
       <div class="bg-rich-white p-6 rounded-lg shadow mb-8">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">
-          Availability
-        </h3>
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Availability</h3>
         <div class="flex gap-4 items-end flex-col">
-          <div class="flex gap-2 justify-start item-center w-full">
+          <div
+            class="flex flex-row gap-2 justify-start item-center w-full md:flex-row sm:flex-col"
+          >
             <div>
               <label for="check-in" class="block font-medium mb-1 text-gray-700"
                 >Check-in</label
               >
-              <DateSelector :minDate="minCheckInDate" @handleDateSelect="handleCheckInSelect" />
+              <DateSelector
+                :minDate="minCheckInDate"
+                @handleDateSelect="handleCheckInSelect"
+              />
             </div>
             <div>
               <label
@@ -98,30 +101,33 @@
           </div>
           <div class="self-start">
             <button
-              type="submit" @click="fetchAvailableRooms()" :disabled="!startDate || !endDate"
+              type="submit"
+              @click="fetchAvailableRooms()"
+              :disabled="!startDate || !endDate"
               class="flex w-full justify-center rounded-md bg-primary-color px-3 py-1.5 text-sm/6 font-semibold text-rich-white shadow-sm hover:bg-secondary-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color self-end"
             >
               Search for available rooms
             </button>
           </div>
         </div>
-        <hr class="my-5">
+        <hr class="my-5" />
         <div>
           <div
             v-if="availableRooms"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4"
           >
             <div
               v-for="room in availableRooms"
               :key="room.id"
               class="bg-rich-white p-4 rounded-lg shadow"
             >
-              <h4 class="text-xl font-semibold text-gray-800">
+              <h4 class="text-xl font-semibold text-primary-color">
                 {{ room.name }}
               </h4>
+              <p class="text-rich-black font-bold">{{ room.category.name }}</p>
               <p class="text-gray-600">{{ room.description }}</p>
               <p class="text-primary-color font-semibold mt-2">
-                R${{ room.price_by_day }} per night
+                R${{ room.price_by_day }} per night/person
               </p>
               <button
                 @click="goToRoomDetail(room.id)"
@@ -172,7 +178,6 @@ const handleCheckOutSelect = date => {
 
 const handleGuestSelect = g => {
   guestCount.value = g
-  console.log(guestCount.value)
 }
 
 const fetchAvailableRooms = async () => {

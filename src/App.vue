@@ -5,21 +5,20 @@
 </template>
 <script setup>
 import { RouterView } from 'vue-router'
-import { computed, watch } from 'vue';
-import { useLodgeStore } from '@/stores/lodge';
+import { computed, watch } from 'vue'
+import { useLodgeStore } from '@/stores/lodge'
 
-const lodgeStore = useLodgeStore();
+const lodgeStore = useLodgeStore()
 
-const logo = computed(() => lodgeStore?.logo);
+const logo = computed(() => lodgeStore?.logo)
 
-watch(logo, (newLogo) => {
-  const favicon = document.getElementById('favicon');
+watch(logo, newLogo => {
+  const favicon = document.getElementById('favicon')
   if (newLogo) {
-    console.log(newLogo);
-    favicon.href = newLogo.photo.url;
+    console.log(newLogo)
+    favicon.href = newLogo.photo.url
   } else {
-    favicon.href = '';
+    favicon.href = ''
   }
-});
-
+})
 </script>
